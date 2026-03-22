@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Ernest Itengishaka | Software Engineer</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="ambient-bg" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+    </div>
 
      <!-- NAVBAR -->
 
@@ -23,7 +30,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#projects">Live Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
 
@@ -110,32 +117,50 @@
             <div class="container">
                 <h2>Skills</h2>
 
-                <div class="skills-slider">
-                    <div class="skills-track">
-                        <div class="skill-card">JavaScript</div>
-                        <div class="skill-card">Node.js</div>
-                        <div class="skill-card">Express.js</div>
-                        <div class="skill-card">React</div>
-                        <div class="skill-card">MongoDB</div>
-                        <div class="skill-card">MongoDB Atlas</div>
-                        <div class="skill-card">AWS</div>
-                        <div class="skill-card">Netlify</div>
-                        <div class="skill-card">GitHub</div>
-                        <div class="skill-card">GitLab</div>
-                        <div class="skill-card">Git</div>
-                        <div class="skill-card">Docker</div>
-                        <div class="skill-card">Kubernetes</div>
-                        <div class="skill-card">Figma</div>
-                        <div class="skill-card">Tailwind CSS</div>
-                        <div class="skill-card">GraphQL</div>
-                        <div class="skill-card">REST API</div>
-                        <div class="skill-card">Python</div>
-                        <div class="skill-card">C#</div>
-                        <div class="skill-card">Java</div>
+                <div class="skills-grid">
+                    <div class="skill-card" title="JavaScript">
+                        <img src="assets/Icons/JavaScript.png" alt="JavaScript" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="Node.js">
+                        <img src="assets/Icons/nodejs.png" alt="Node.js" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="Express.js">
+                        <img src="assets/Icons/expressjs.png" alt="Express.js" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="React">
+                        <img src="assets/Icons/react.png" alt="React" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="MongoDB">
+                        <img src="assets/Icons/Mongodb.png" alt="MongoDB" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="Netlify">
+                        <img src="assets/Icons/netlify.png" alt="Netlify" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="GitHub">
+                        <img src="assets/Icons/Github.png" alt="GitHub" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="GitLab">
+                        <img src="assets/Icons/Gitlab.png" alt="GitLab" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="Git">
+                        <img src="assets/Icons/Giticon.png" alt="Git" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="Figma">
+                        <img src="assets/Icons/Figmaicon.png" alt="Figma" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="Tailwind CSS">
+                        <img src="assets/Icons/Tailwind.png" alt="Tailwind CSS" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="GraphQL">
+                        <img src="assets/Icons/Graphql.png" alt="GraphQL" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="REST API">
+                        <img src="assets/Icons/RestApi.jpeg" alt="REST API" width="64" height="64" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="skill-card" title="C#">
+                        <img src="assets/Icons/C%23logo.jpeg" alt="C#" width="64" height="64" loading="lazy" decoding="async" />
                     </div>
                 </div>
-
-                <div class="skills-pagination"></div>
             </div>
     </section>
 
@@ -147,7 +172,7 @@
 
                 <h2>Experience</h2>
 
-                <div class="experience-cards">
+                <div class="experience-grid">
                     <div class="experience-card">
                         <h3>Fullstackutvecklare | Vornify AI</h3>
                         <span>October 2025 - February 2026 | Bålsta</span>
@@ -184,9 +209,33 @@
                         </ul>
                     </div>
 
-                </div>
+                    <div class="experience-card">
+                        <h3>Job Chaser – Full-Stack Job Search App</h3>
+                        <span>Project | React, TypeScript, Node.js, PostgreSQL</span>
+                        <ul>
+                            <li>Built a React + TypeScript SPA with Vite, React Router, and React Hook Form; responsive UI with light/dark theme via React Context.</li>
+                            <li>Implemented global client state with Zustand (persisted auth and job filters in localStorage) and a reducer-style filter model (text, location, category, employment type) applied across pages.</li>
+                            <li>Added protected routes so unauthenticated users are redirected to sign-in for sensitive views.</li>
+                            <li>Integrated a Node.js + Express + TypeScript REST API with PostgreSQL, Drizzle ORM, and startup schema migrations for evolving tables.</li>
+                            <li>Implemented JWT-based authentication, password hashing with bcrypt, and CORS for a separate frontend origin.</li>
+                            <li>Connected to Sweden’s JobTech jobs API, synced listings into the database, and mapped fields such as application URLs, location, occupation, and employment type.</li>
+                            <li>Delivered search/filter, job ads, apply links, and client-side saved/liked plus “recently applied” tracking tied to the logged-in user.</li>
+                        </ul>
+                    </div>
 
-                <div class="experience-pagination"></div>
+                    <div class="experience-card">
+                        <h3>Peak Mode Admin – E-Commerce / Operations Dashboard</h3>
+                        <span>October 2024 - January 2026 | Bålsta</span>
+                        <ul>
+                            <li>Built and maintained a large-scale admin SPA for day-to-day operations: orders (listing, detail, editing, refunds, tracking, insights), products (CRUD, media), customers, shipping (rates, configuration, admin shipment visibility), discount codes, reviews, newsletter and email campaigns, contact messages, and hub-style content (drops, stories, features, dashboard).</li>
+                            <li>Integrated a central API layer (Axios) with typed services, error handling, and many admin endpoints so the UI stays thin and the backend owns business rules.</li>
+                            <li>Implemented role-aware admin flows: login, invites, password reset, profile, and shared admin context for auth and session behaviour across the app.</li>
+                            <li>Delivered complex, data-heavy UIs: dashboards with Recharts, dense tables with filters and pagination, and consistent UX patterns (modals, portals, slide-in panels, scroll containment, layouts that work with long forms).</li>
+                            <li>Used React Hook Form + Zod for validated forms, Tailwind for layout and design-system-style styling, and TypeScript across the codebase for safer refactors on a multi-page app.</li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
     </section>
 
@@ -196,17 +245,18 @@
     <section id="projects">
         <div class="container">
 
-            <h2>Projects</h2>
+            <h2>Live Projects</h2>
 
-            <div class="projects-cards">
+            <div class="carousel-viewport" data-carousel="projects">
+            <div class="projects-cards carousel-track">
 
                 <div class="project-card">
                     <h3>Peak Mode – Fullstack E-Commerce</h3>
                     <span>October 2024 - January 2026 | Bålsta</span>
                     <p>Fullstack e-commerce platform with customer site and admin dashboard. Implemented frontend in React & Vite, backend with Node.js & Express, MongoDB database, Stripe payments, Cloudinary media handling, deployed via Render.</p>
                     <div class="project-links">
-                        <a href="https://peakmode.se" target="_blank">View Live</a>
-                        <a href="https://github.com/USBAI/vornify_server" target="_blank">View Code</a>
+                        <a href="https://peakmode.se" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
+                        <a href="https://github.com/USBAI/vornify_server" target="_blank" rel="noopener noreferrer">View Code</a>
                     </div>
                     <div class="project-tech">
                         React, Node.js, Express, MongoDB, Stripe, Cloudinary, Render
@@ -214,21 +264,35 @@
                 </div>
 
                 <div class="project-card">
-                    <h3>Kluret – AI Product Comparison</h3>
-                    <span>October 2024 - September 2025 | Bålsta</span>
-                    <p>AI-driven platform comparing products across multiple e-commerce sites. Built frontend & backend features for comparison, integrated AI and external APIs, real-time analysis, and recommendations.</p>
+                    <h3>Vornify AI</h3>
+                    <span>October 2025 - February 2026 | Bålsta</span>
+                    <p>AI-driven platform where users discuss technical ideas with AI and connect with development agents. Backend logic for user interactions, RESTful API integrations, and collaboration in a team environment — with focus on architecture and maintainable application code.</p>
                     <div class="project-links">
-                        <a href="#" target="_blank">View Live</a>
-                        <a href="#" target="_blank">View Code</a>
+                        <a href="https://vornify.se" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
+                        <a href="https://github.com/ErnestIssa" target="_blank" rel="noopener noreferrer">View Code</a>
                     </div>
                     <div class="project-tech">
-                        React, Node.js, Python, Django, MongoDB, PostgreSQL, AI APIs
+                        React, Node.js, Express, REST APIs, AI integrations, Cursor-assisted development
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Peak Mode Admin – Operations Dashboard</h3>
+                    <span>October 2024 - January 2026 | Bålsta</span>
+                    <p>Developed a React/TypeScript admin dashboard for e-commerce operations—orders, inventory, shipping, CRM, marketing, and content—integrated with REST APIs, strong typing, and form validation. Large-scale SPA covering orders, products, customers, shipping, discounts, reviews, campaigns, and hub content, with Recharts analytics and role-aware admin flows.</p>
+                    <div class="project-links">
+                        <a href="https://peakmode-admin.onrender.com" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
+                        <a href="https://github.com/USBAI/vornify_server" target="_blank" rel="noopener noreferrer">View Code</a>
+                    </div>
+                    <div class="project-tech">
+                        React, TypeScript, Vite, Tailwind CSS, React Router, Axios, React Hook Form, Zod, Recharts
                     </div>
                 </div>
 
             </div>
+            </div>
 
-            <div class="projects-pagination"></div>
+            <div class="projects-pagination carousel-pagination"></div>
 
         </div>
     </section>
