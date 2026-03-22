@@ -200,3 +200,79 @@ if (!reduceMotion) {
 } else {
     document.querySelectorAll(".reveal").forEach((el) => el.classList.add("reveal-visible"));
 }
+
+// —— CONTACT FORM → email (POST /api/contact) + success modal ——
+const contactForm = document.getElementById("contact-form");
+const contactErrorEl = document.getElementById("contact-form-error");
+const contactSubmitBtn = document.getElementById("contact-submit");
+const contactSubmitLabel = contactSubmitBtn?.querySelector(".contact-submit-label");
+const contactSuccessDialog = document.getElementById("contact-success-dialog");
+const contactSuccessClose = document.getElementById("contact-success-close");
+const contactSuccessOk = document.getElementById("contact-success-ok");
+
+function setContactError(msg) {
+    if (!contactErrorEl) return;
+    if (msg) {
+        contactErrorEl.textContent = msg;
+        contactErrorEl.hidden = false;
+    } else {
+        contactErrorEl.textContent = "";
+        contactErrorEl.hidden = true;
+    }
+}
+
+function closeContactSuccess() {
+    contactSuccessDialog?.close();
+}
+
+if (contactForm && contactSubmitBtn && contactSubmitLabel) {
+    contactForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        setContactError("");
+
+        const name = document.getElementById("contact-name")?.value?.trim() || "";
+        const email = document.getElementById("contact-email")?.value?.trim() || "";
+        const message = document.getElementById("contact-message")?.value?.trim() || "";
+
+        if (!name || !email || !message) {
+            setContactError("Please fill in your name, email, and message.");
+            return;
+        }
+
+        contactSubmitBtn.disabled = true;
+        contactSubmitLabel.textContent = "Sending…";
+
+        try {
+            const res = await fetch(`${window.location.origin}/api/contact`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, message }),
+            });
+            const data = await res.json().catch(() => ({}));
+            if (res.status === 404) {
+                throw new Error(
+                    "Contact API not found. Stop any old server on this port, then run npm start from the project folder."
+                );
+            }
+            if (!res.ok || !data.ok) {
+                throw new Error(data.error || "Could not send. Please try again.");
+            }
+            contactForm.reset();
+            contactSuccessDialog?.showModal();
+        } catch (err) {
+            setContactError(err.message || "Something went wrong.");
+        } finally {
+            contactSubmitBtn.disabled = false;
+            contactSubmitLabel.textContent = "Send Message";
+        }
+    });
+}
+
+contactSuccessClose?.addEventListener("click", closeContactSuccess);
+contactSuccessOk?.addEventListener("click", closeContactSuccess);
+
+contactSuccessDialog?.addEventListener("click", (e) => {
+    if (e.target === contactSuccessDialog) {
+        closeContactSuccess();
+    }
+});

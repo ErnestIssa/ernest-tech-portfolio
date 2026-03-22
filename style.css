@@ -1193,6 +1193,216 @@ body.light-mode .contact-form button {
     transform: translateY(0) scale(0.98);
 }
 
+.contact-form button:disabled {
+    opacity: 0.72;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.contact-form button:disabled:hover {
+    transform: none;
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+}
+
+.contact-form-error {
+    color: #f87171;
+    font-size: 0.9rem;
+    margin: -4px 0 0;
+    min-height: 1.25em;
+}
+
+body.light-mode .contact-form-error {
+    color: #dc2626;
+}
+
+/* Contact success modal */
+.contact-success-dialog {
+    padding: 0;
+    border: none;
+    max-width: calc(100vw - 2rem);
+    width: min(26rem, 100%);
+    background: transparent;
+    overflow: visible;
+}
+
+.contact-success-dialog::backdrop {
+    background: rgba(5, 5, 12, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body.light-mode .contact-success-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.45);
+}
+
+.contact-success-inner {
+    position: relative;
+    padding: clamp(1.75rem, 5vw, 2.25rem) clamp(1.5rem, 4vw, 2rem) 1.75rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(155deg, var(--surface-3) 0%, var(--surface-2) 45%, var(--surface) 100%);
+    border: 1px solid var(--border);
+    box-shadow:
+        var(--glow-pink),
+        var(--glow-blue),
+        0 32px 64px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    overflow: hidden;
+    animation: contact-modal-in 0.55s var(--ease-out-expo) both;
+}
+
+@keyframes contact-modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.contact-success-glow {
+    position: absolute;
+    inset: -40%;
+    background:
+        radial-gradient(circle at 30% 20%, var(--pink-soft), transparent 45%),
+        radial-gradient(circle at 70% 80%, var(--cyan-soft), transparent 50%);
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.contact-success-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--surface-2) 80%, transparent);
+    color: var(--grey);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.2s var(--ease-spring);
+}
+
+.contact-success-close:hover {
+    color: var(--white);
+    background: var(--surface-3);
+    transform: scale(1.06);
+}
+
+.contact-success-icon-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.contact-success-check {
+    display: block;
+    filter: drop-shadow(0 8px 24px rgba(255, 77, 141, 0.35));
+}
+
+.contact-success-circle {
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+    animation: contact-draw-circle 0.7s var(--ease-out-expo) 0.15s forwards;
+}
+
+.contact-success-tick {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: contact-draw-tick 0.45s var(--ease-out-expo) 0.55s forwards;
+}
+
+@keyframes contact-draw-circle {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes contact-draw-tick {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.contact-success-title {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 4vw, 1.65rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.65rem;
+    background: linear-gradient(105deg, var(--white) 0%, var(--cyan) 55%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.contact-success-text {
+    position: relative;
+    z-index: 1;
+    color: var(--grey);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin-bottom: 1.35rem;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-success-cta {
+    position: relative;
+    z-index: 1;
+    padding: 12px 28px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--black);
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    transition:
+        transform 0.3s var(--ease-spring),
+        box-shadow 0.4s ease;
+}
+
+body.light-mode .contact-success-cta {
+    color: #fff;
+}
+
+.contact-success-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-blue), 0 10px 28px rgba(0, 0, 0, 0.2);
+}
+
+.contact-success-cta:active {
+    transform: translateY(0) scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-success-inner {
+        animation: none;
+    }
+
+    .contact-success-circle,
+    .contact-success-tick {
+        animation: none;
+        stroke-dashoffset: 0;
+    }
+}
+
 /* Remove legacy duplicate nav rules — header .navbar owns layout */
 
 /* Tablet & phone: shorter nav, smaller controls */

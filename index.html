@@ -316,11 +316,12 @@
                 </div>
 
                 <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
-                        <button type="submit">Send Message</button>
+                    <form id="contact-form" novalidate>
+                        <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your Name" required maxlength="120" />
+                        <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your Email" required maxlength="254" />
+                        <textarea id="contact-message" name="message" placeholder="Your Message" rows="5" required maxlength="10000"></textarea>
+                        <p class="contact-form-error" id="contact-form-error" role="alert" hidden></p>
+                        <button type="submit" id="contact-submit"><span class="contact-submit-label">Send Message</span></button>
                     </form>
                 </div>
 
@@ -329,6 +330,28 @@
         </div>
     </section>
 
+    <dialog class="contact-success-dialog" id="contact-success-dialog" aria-labelledby="contact-success-title">
+        <div class="contact-success-inner">
+            <div class="contact-success-glow" aria-hidden="true"></div>
+            <button type="button" class="contact-success-close" id="contact-success-close" aria-label="Close">&times;</button>
+            <div class="contact-success-icon-wrap" aria-hidden="true">
+                <svg class="contact-success-check" viewBox="0 0 64 64" width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="contact-success-circle" cx="32" cy="32" r="28" stroke="url(#cs-grad)" stroke-width="2.5" />
+                    <path class="contact-success-tick" d="M20 33l8 8 16-18" stroke="url(#cs-grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="cs-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ff4d8d" />
+                            <stop offset="50%" stop-color="#67e8f9" />
+                            <stop offset="100%" stop-color="#3b82f6" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h3 id="contact-success-title" class="contact-success-title">Message sent</h3>
+            <p class="contact-success-text">Thank you for reaching out. I’ll get back to you as soon as I can.</p>
+            <button type="button" class="contact-success-cta" id="contact-success-ok">Done</button>
+        </div>
+    </dialog>
 
   <script src="script.js"></script>
 

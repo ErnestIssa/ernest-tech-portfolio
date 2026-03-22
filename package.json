@@ -19,6 +19,8 @@
   "homepage": "https://github.com/ErnestIssa/ernest-tech-portfolio#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "nodemailer": "^6.9.16"
   }
 }
