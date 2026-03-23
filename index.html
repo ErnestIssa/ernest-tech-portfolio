@@ -27,11 +27,11 @@
                 </div>
 
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Live Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a id="nav-home" href="#home">Home</a></li>
+                    <li><a id="nav-about" href="#about">About</a></li>
+                    <li><a id="nav-experience" href="#experience">Experience</a></li>
+                    <li><a id="nav-projects" href="#projects">Live Projects</a></li>
+                    <li><a id="nav-contact" href="#contact">Contact</a></li>
                 </ul>
 
                 <div class="nav-actions">
@@ -54,9 +54,9 @@
     <section id="home">
         <div class="container">
 
-            <h1>Creating Digital Solutions</h1>
+            <h1 id="home-title">Creating Digital Solutions</h1>
 
-            <p>
+            <p id="home-subtitle">
                 In the world of code, every line tells a story, every function solves a problem,
                 and every project makes a difference. Through software development, we don't
                 just build code – we build the future, one commit at a time.
@@ -64,9 +64,21 @@
 
             <div class="hero-buttons">
 
-                <a href="#" class="btn">View LinkedIn</a>
+                <a
+                    id="hero-linkedin"
+                    href="https://www.linkedin.com/in/ernest-itangishaka-4a5058383?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn"
+                >View LinkedIn</a>
 
-                <a href="#" class="btn">View GitHub</a>
+                <a
+                    id="hero-github"
+                    href="https://github.com/ErnestIssa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn"
+                >View GitHub</a>
 
             </div>
 
@@ -80,13 +92,13 @@
     <section id="about">
         <div class="container">
 
-            <h2>About Me</h2>
+            <h2 id="about-title">About Me</h2>
 
             <div class="about-content">
 
                 <h3>Ernest Itengishaka</h3>
 
-                <p>
+                <p id="about-p1">
                     I am a software developer passionate about building digital
                     solutions and solving complex technical problems. My journey
                     into programming started at the age of 16, and since then I
@@ -94,7 +106,7 @@
                     improve my technical skills.
                 </p>
 
-                <p>
+                <p id="about-p2">
                     I enjoy working on challenging projects, collaborating with
                     developers, and turning ideas into functional applications.
                     My focus is on creating scalable, well-structured systems
@@ -102,7 +114,7 @@
                     my development practices.
                 </p>
 
-                <p>
+                <p id="about-p3">
                     Beyond coding, I believe in sharing knowledge, learning from
                     other developers, and contributing to projects that create
                     meaningful impact.
@@ -115,7 +127,7 @@
 
     <section id="skills">
             <div class="container">
-                <h2>Skills</h2>
+                <h2 id="skills-title">Skills</h2>
 
                 <div class="skills-grid">
                     <div class="skill-card" title="JavaScript">
@@ -170,7 +182,7 @@
     <section id="experience">
             <div class="container">
 
-                <h2>Experience</h2>
+                <h2 id="experience-title">Experience</h2>
 
                 <div class="experience-grid">
                     <div class="experience-card">
@@ -245,7 +257,7 @@
     <section id="projects">
         <div class="container">
 
-            <h2>Live Projects</h2>
+            <h2 id="projects-title">Live Projects</h2>
 
             <div class="carousel-viewport" data-carousel="projects">
             <div class="projects-cards carousel-track">
@@ -303,7 +315,7 @@
     <section id="contact">
         <div class="container">
 
-            <h2>Contact Me</h2>
+            <h2 id="contact-title">Contact Me</h2>
 
             <div class="contact-content">
 
@@ -321,7 +333,7 @@
                         <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your Email" required maxlength="254" />
                         <textarea id="contact-message" name="message" placeholder="Your Message" rows="5" required maxlength="10000"></textarea>
                         <p class="contact-form-error" id="contact-form-error" role="alert" hidden></p>
-                        <button type="submit" id="contact-submit"><span class="contact-submit-label">Send Message</span></button>
+                        <button type="submit" id="contact-submit"><span class="contact-submit-label" id="contact-submit-label">Send Message</span></button>
                     </form>
                 </div>
 
@@ -350,6 +362,17 @@
             <h3 id="contact-success-title" class="contact-success-title">Message sent</h3>
             <p class="contact-success-text">Thank you for reaching out. I’ll get back to you as soon as I can.</p>
             <button type="button" class="contact-success-cta" id="contact-success-ok">Done</button>
+        </div>
+    </dialog>
+
+    <dialog class="lang-success-dialog" id="lang-success-dialog" aria-labelledby="lang-success-title">
+        <div class="lang-success-inner">
+            <div class="lang-success-glow" aria-hidden="true"></div>
+            <button type="button" class="lang-success-close" id="lang-success-close" aria-label="Close">
+                &times;
+            </button>
+            <h3 id="lang-success-title" class="lang-success-title">Language updated</h3>
+            <p id="lang-success-text" class="lang-success-text">Done.</p>
         </div>
     </dialog>
 

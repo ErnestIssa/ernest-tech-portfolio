@@ -48,6 +48,27 @@ touchNavMq.addEventListener("change", () => {
     if (!touchNavMq.matches) header?.classList.remove("nav-hidden");
 });
 
+// Always land on the hero section with the main text/buttons visible
+function landAtHome() {
+    const homeEl = document.getElementById("home");
+    if (!homeEl) return;
+    // Ignore URL hash so the page always starts at the hero.
+    if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    header?.classList.remove("nav-hidden");
+    // requestAnimationFrame keeps it immediate but avoids layout glitches.
+    requestAnimationFrame(() => {
+        homeEl.scrollIntoView({ behavior: "auto", block: "start" });
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", landAtHome, { once: true });
+} else {
+    landAtHome();
+}
+
 // —— Projects carousel only ——
 function onHorizontalScrollEnd(el, handler) {
     let t;
@@ -165,17 +186,183 @@ if (toggleModeBtn) {
     });
 }
 
-// —— LANGUAGE (placeholder) ——
+// —— LANGUAGE EN/SE (instant swap + confirmation modal) ——
 const langSE = document.getElementById("lang-se");
 const langUS = document.getElementById("lang-us");
+
+const langSuccessDialog = document.getElementById("lang-success-dialog");
+const langSuccessTitle = document.getElementById("lang-success-title");
+const langSuccessText = document.getElementById("lang-success-text");
+const langSuccessClose = document.getElementById("lang-success-close");
+
+const translations = {
+    en: {
+        navHome: "Home",
+        navAbout: "About",
+        navExperience: "Experience",
+        navProjects: "Live Projects",
+        navContact: "Contact",
+        homeTitle: "Creating Digital Solutions",
+        homeSubtitle:
+            "In the world of code, every line tells a story, every function solves a problem, and every project makes a difference. Through software development, we don't just build code – we build the future, one commit at a time.",
+        heroLinkedIn: "View LinkedIn",
+        heroGitHub: "View GitHub",
+        aboutTitle: "About Me",
+        aboutP1:
+            "I am a software developer passionate about building digital solutions and solving complex technical problems. My journey into programming started at the age of 16, and since then I have been driven by curiosity and a desire to continuously improve my technical skills.",
+        aboutP2:
+            "I enjoy working on challenging projects, collaborating with developers, and turning ideas into functional applications. My focus is on creating scalable, well-structured systems while constantly learning new technologies and improving my development practices.",
+        aboutP3:
+            "Beyond coding, I believe in sharing knowledge, learning from other developers, and contributing to projects that create meaningful impact.",
+        skillsTitle: "Skills",
+        experienceTitle: "Experience",
+        projectsTitle: "Live Projects",
+        contactTitle: "Contact Me",
+        contactNamePh: "Your Name",
+        contactEmailPh: "Your Email",
+        contactMessagePh: "Your Message",
+        contactSend: "Send Message",
+        contactSuccessTitle: "Message sent",
+        contactSuccessText:
+            "Thank you for reaching out. I’ll get back to you as soon as I can.",
+        langModalTitle: "Language updated",
+        langModalText: "English is enabled.",
+        langModalAlreadyTitle: "Language already enabled",
+        langModalAlreadyText: "English is already active.",
+    },
+    se: {
+        navHome: "Hem",
+        navAbout: "Om",
+        navExperience: "Erfarenhet",
+        navProjects: "Live-projekt",
+        navContact: "Kontakt",
+        homeTitle: "Skapar digitala lösningar",
+        homeSubtitle:
+            "I kodens värld berättar varje rad en historia, varje funktion löser ett problem och varje projekt gör skillnad. Genom mjukvaruutveckling bygger vi inte bara kod – vi bygger framtiden, ett commit i taget.",
+        heroLinkedIn: "Se LinkedIn",
+        heroGitHub: "Se GitHub",
+        aboutTitle: "Om mig",
+        aboutP1:
+            "Jag är en mjukvaruutvecklare som brinner för att skapa digitala lösningar och lösa komplexa tekniska utmaningar. Min resa in i programmering började när jag var 16, och sedan dess har jag drivits av nyfikenhet och en vilja att ständigt förbättra mina tekniska färdigheter.",
+        aboutP2:
+            "Jag trivs med att arbeta med utmanande projekt, samarbeta med utvecklare och förvandla idéer till fungerande applikationer. Mitt fokus är att skapa skalbara, väldstrukturerade system samtidigt som jag fortsätter att lära mig nya tekniker och förbättra mina utvecklingsrutiner.",
+        aboutP3:
+            "Utöver att koda tror jag på att dela kunskap, lära av andra utvecklare och bidra till projekt som skapar meningsfull effekt.",
+        skillsTitle: "Färdigheter",
+        experienceTitle: "Erfarenhet",
+        projectsTitle: "Live-projekt",
+        contactTitle: "Kontakta mig",
+        contactNamePh: "Ditt namn",
+        contactEmailPh: "Din e-post",
+        contactMessagePh: "Ditt meddelande",
+        contactSend: "Skicka meddelande",
+        contactSuccessTitle: "Meddelande skickat",
+        contactSuccessText: "Tack för att du hörde av dig. Jag återkommer så snart jag kan.",
+        langModalTitle: "Språk uppdaterat",
+        langModalText: "Svenska är aktiverat.",
+        langModalAlreadyTitle: "Språket är redan aktivt",
+        langModalAlreadyText: "Svenska är redan aktiverat.",
+    },
+};
+
+let currentLang = "en";
+
+function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+}
+
+function setPlaceholder(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute("placeholder", value);
+}
+
+function applyLanguage(lang) {
+    const t = translations[lang] || translations.en;
+    currentLang = lang;
+    document.body.dataset.lang = lang;
+
+    setText("nav-home", t.navHome);
+    setText("nav-about", t.navAbout);
+    setText("nav-experience", t.navExperience);
+    setText("nav-projects", t.navProjects);
+    setText("nav-contact", t.navContact);
+
+    setText("home-title", t.homeTitle);
+    setText("home-subtitle", t.homeSubtitle);
+
+    setText("hero-linkedin", t.heroLinkedIn);
+    setText("hero-github", t.heroGitHub);
+
+    setText("about-title", t.aboutTitle);
+    setText("about-p1", t.aboutP1);
+    setText("about-p2", t.aboutP2);
+    setText("about-p3", t.aboutP3);
+
+    setText("skills-title", t.skillsTitle);
+    setText("experience-title", t.experienceTitle);
+    setText("projects-title", t.projectsTitle);
+    setText("contact-title", t.contactTitle);
+
+    setPlaceholder("contact-name", t.contactNamePh);
+    setPlaceholder("contact-email", t.contactEmailPh);
+    setPlaceholder("contact-message", t.contactMessagePh);
+    setText("contact-submit-label", t.contactSend);
+
+    // Contact success dialog copy (keep styling, only swap text).
+    setText("contact-success-title", t.contactSuccessTitle);
+    const successTextEl = document.querySelector(".contact-success-text");
+    if (successTextEl) successTextEl.textContent = t.contactSuccessText;
+}
+
+function setLangSuccessModal(lang, alreadyEnabled) {
+    const t = translations[lang] || translations.en;
+    if (langSuccessTitle) {
+        langSuccessTitle.textContent = alreadyEnabled
+            ? t.langModalAlreadyTitle
+            : t.langModalTitle;
+    }
+    if (langSuccessText) {
+        langSuccessText.textContent = alreadyEnabled
+            ? t.langModalAlreadyText
+            : t.langModalText;
+    }
+}
+
+function showLangSuccess(lang, alreadyEnabled) {
+    if (!langSuccessDialog || !langSuccessDialog.showModal) return;
+    setLangSuccessModal(lang, alreadyEnabled);
+    langSuccessDialog.showModal();
+}
+
+function closeLangSuccess() {
+    langSuccessDialog?.close();
+}
+
+if (langSuccessClose) {
+    langSuccessClose.addEventListener("click", closeLangSuccess);
+}
+
+langSuccessDialog?.addEventListener("click", (e) => {
+    if (e.target === langSuccessDialog) closeLangSuccess();
+});
+
+// Initial language
+applyLanguage("en");
+
 if (langSE) {
     langSE.addEventListener("click", () => {
-        alert("Switching to Swedish content...");
+        const already = currentLang === "se";
+        applyLanguage("se");
+        showLangSuccess("se", already);
     });
 }
+
 if (langUS) {
     langUS.addEventListener("click", () => {
-        alert("Switching to English content...");
+        const already = currentLang === "en";
+        applyLanguage("en");
+        showLangSuccess("en", already);
     });
 }
 

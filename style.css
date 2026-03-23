@@ -1504,3 +1504,104 @@ body.light-mode .contact-success-cta {
         min-height: 32px;
     }
 }
+
+/* Language confirmation modal */
+.lang-success-dialog {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-success-dialog::backdrop {
+    background: rgba(5, 5, 12, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body.light-mode .lang-success-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.42);
+}
+
+.lang-success-inner {
+    position: relative;
+    padding: clamp(1.55rem, 4.5vw, 2rem) clamp(1.35rem, 4vw, 1.8rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: linear-gradient(155deg, var(--surface-3) 0%, var(--surface-2) 45%, var(--surface) 100%);
+    box-shadow: var(--glow-pink), var(--glow-blue), 0 32px 64px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    overflow: hidden;
+    animation: lang-modal-in 0.65s var(--ease-out-expo) both;
+}
+
+@keyframes lang-modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.lang-success-glow {
+    position: absolute;
+    inset: -40%;
+    background:
+        radial-gradient(circle at 30% 20%, var(--pink-soft), transparent 45%),
+        radial-gradient(circle at 70% 80%, var(--cyan-soft), transparent 50%);
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.lang-success-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--surface-2) 80%, transparent);
+    color: var(--grey);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s var(--ease-spring), color 0.25s ease, background 0.25s ease;
+}
+
+.lang-success-close:hover {
+    color: var(--white);
+    background: var(--surface-3);
+    transform: scale(1.06);
+}
+
+.lang-success-title {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(105deg, var(--white) 0%, var(--cyan) 55%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.lang-success-text {
+    position: relative;
+    z-index: 1;
+    color: var(--grey);
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
