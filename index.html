@@ -1,406 +1,1651 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Ernest Itengishaka | Software Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ernest Itengishaka — Software Engineer</title>
+<script>
+(function(){
+  try {
+    var l = localStorage.getItem('lang');
+    if (l === 'sv') document.documentElement.classList.add('lang-pending');
+    if (l === 'en' || l === 'sv') document.documentElement.lang = l;
+  } catch(e){}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ──────────────── TOKENS ──────────────── */
+:root {
+  --bg:       #f0f2f5;
+  --glass:    rgba(255,255,255,0.52);
+  --glass2:   rgba(255,255,255,0.28);
+  --glass3:   rgba(255,255,255,0.72);
+  --border:   rgba(255,255,255,0.65);
+  --border2:  rgba(255,255,255,0.30);
+  --ink:      #0d1117;
+  --ink2:     #374151;
+  --ink3:     #6b7280;
+  --ink4:     #9ca3af;
+  --green:    #1a7a52;
+  --green2:   #2d9e6b;
+  --greenl:   rgba(26,122,82,0.12);
+  --silver:   #c8d0db;
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --sans:     'Syne', sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+  --shadow:   0 8px 32px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow2:  0 20px 60px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { font-size:16px; scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── BACKGROUND MESH ── */
+body::before {
+  content:"";
+  position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(26,122,82,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 70%, rgba(200,208,219,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(26,122,82,0.05) 0%, transparent 60%),
+    linear-gradient(160deg, #e8edf3 0%, #f0f3f7 40%, #e4eaee 100%);
+}
+/* animated floating orbs */
+body::after {
+  content:"";
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(circle 400px at var(--ox,20%) var(--oy,30%), rgba(26,122,82,0.06), transparent),
+    radial-gradient(circle 300px at var(--ox2,80%) var(--oy2,70%), rgba(200,208,219,0.2), transparent);
+  transition: background 1.2s ease;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cur { position:fixed; width:10px; height:10px; border-radius:50%;
+  background:var(--green); pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%); mix-blend-mode:multiply;
+  transition:width .2s,height .2s,border-radius .2s,background .2s; }
+#ring { position:fixed; width:34px; height:34px; border-radius:50%;
+  border:1.5px solid rgba(26,122,82,0.35); pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .3s; }
+
+/* ═══════════════════════════════════════════
+   HERO SNAP SECTION
+═══════════════════════════════════════════ */
+#hero-snap {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  /* scroll-snap handled by JS for mobile; desktop has arrow */
+}
+
+/* ambient light particles */
+.hero-canvas { position:absolute; inset:0; z-index:0; pointer-events:none; }
+
+/* ── BANK CARD ── */
+.card-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.bank-card {
+  width: min(480px, 88vw);
+  aspect-ratio: 85.6 / 53.98; /* ISO/IEC 7810 ID-1 ratio */
+  border-radius: 18px;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: none;
+
+  /* silver glass base */
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.88) 0%,
+      rgba(220,228,238,0.72) 25%,
+      rgba(200,210,222,0.60) 50%,
+      rgba(225,232,240,0.80) 75%,
+      rgba(255,255,255,0.70) 100%
+    );
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,0.80);
+
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.9) inset,
+    0 -1px 0 rgba(0,0,0,0.06) inset,
+    0 30px 80px rgba(0,0,0,0.14),
+    0 8px 24px rgba(0,0,0,0.08),
+    0 2px 4px rgba(0,0,0,0.05);
+
+  transition: transform 0.12s ease, box-shadow 0.15s ease;
+  overflow: hidden;
+}
+
+/* holographic shimmer overlay */
+.bank-card::before {
+  content:"";
+  position:absolute; inset:0; border-radius:18px; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(105deg,
+      transparent 20%,
+      rgba(26,122,82,0.06) 30%,
+      rgba(255,255,255,0.18) 40%,
+      transparent 50%,
+      rgba(200,208,219,0.08) 60%,
+      rgba(255,255,255,0.12) 70%,
+      transparent 80%
+    );
+  opacity: 0;
+  transition: opacity .3s, transform .3s;
+}
+.bank-card:hover::before { opacity:1; }
+
+/* subtle emboss lines */
+.bank-card::after {
+  content:"";
+  position:absolute; inset:0; border-radius:18px; z-index:1; pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,0.025) 3px,
+      rgba(255,255,255,0.025) 4px
+    );
+}
+
+/* card inner layout */
+.card-inner {
+  position:absolute; inset:0; z-index:2;
+  padding: clamp(20px,4.5%,32px) clamp(24px,5.5%,40px);
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+
+/* top row */
+.card-top { display:flex; justify-content:space-between; align-items:flex-start; }
+
+.card-logo {
+  font-family:var(--serif); font-weight:300; font-size:clamp(14px,2.5vw,18px);
+  color:rgba(13,17,23,0.5); letter-spacing:.04em;
+}
+.card-logo em { font-style:italic; color:var(--green); }
+
+.card-chip {
+  width:clamp(32px,6%,44px); height:clamp(24px,4.5%,34px);
+  border-radius:4px;
+  background: linear-gradient(135deg,
+    rgba(255,215,0,0.35) 0%,
+    rgba(255,230,100,0.5) 40%,
+    rgba(200,170,50,0.4) 100%
+  );
+  border:1px solid rgba(200,160,30,0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -1px 0 rgba(0,0,0,0.1),
+    0 2px 6px rgba(0,0,0,0.1);
+  position:relative; overflow:hidden;
+}
+.card-chip::before {
+  content:"";
+  position:absolute; top:50%; left:0; right:0; height:1px;
+  background:rgba(200,160,30,0.5); transform:translateY(-50%);
+}
+.card-chip::after {
+  content:"";
+  position:absolute; left:50%; top:0; bottom:0; width:1px;
+  background:rgba(200,160,30,0.5); transform:translateX(-50%);
+}
+
+/* contactless icon */
+.card-nfc {
+  display:flex; flex-direction:column; gap:3px; align-items:center;
+}
+.nfc-arc {
+  border:1.5px solid rgba(13,17,23,0.2); border-radius:50%;
+  border-left-color:transparent; border-bottom-color:transparent;
+  transform:rotate(45deg);
+}
+
+/* middle — name area */
+.card-mid {
+  display:flex; flex-direction:column; gap:4px;
+}
+.card-since {
+  font-family:var(--mono); font-size:clamp(7px,1.2vw,9px);
+  letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(13,17,23,0.38);
+}
+.card-name {
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(20px,4vw,30px);
+  color:rgba(13,17,23,0.82); letter-spacing:.02em; line-height:1;
+}
+.card-name em { font-style:italic; color:var(--green); display:block; }
+.card-title-line {
+  font-family:var(--mono); font-size:clamp(7px,1.2vw,10px);
+  letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(13,17,23,0.42); margin-top:2px;
+}
+
+/* bottom row */
+.card-bottom { display:flex; justify-content:space-between; align-items:flex-end; }
+
+.card-meta { display:flex; flex-direction:column; gap:4px; }
+.card-born-label {
+  font-family:var(--mono); font-size:clamp(6px,1vw,8px);
+  letter-spacing:.14em; text-transform:uppercase; color:rgba(13,17,23,0.35);
+}
+.card-born-val {
+  font-family:var(--mono); font-size:clamp(10px,1.6vw,13px);
+  letter-spacing:.08em; color:rgba(13,17,23,0.65);
+}
+
+.card-age-wrap { text-align:right; }
+.card-age-label {
+  font-family:var(--mono); font-size:clamp(6px,1vw,8px);
+  letter-spacing:.14em; text-transform:uppercase; color:rgba(13,17,23,0.35);
+  display:block; margin-bottom:4px;
+}
+.card-age {
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(28px,5vw,40px); font-weight:300;
+  color:rgba(13,17,23,0.78); line-height:1;
+}
+.card-age span.suffix {
+  font-size:clamp(10px,1.5vw,14px); color:rgba(13,17,23,0.4);
+  font-style:normal; font-family:var(--mono); margin-left:2px;
+}
+
+/* profile image */
+.card-profile-img {
+  position:absolute; top:16px; right:16px;
+  width:clamp(90px,16%,120px); height:clamp(90px,16%,120px);
+  border-radius:12px;
+  object-fit:cover;
+  object-position:center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index:3;
+}
+
+/* card NFC arcs size */
+.nfc-arc:nth-child(1){ width:8px;height:8px; }
+.nfc-arc:nth-child(2){ width:13px;height:13px; }
+.nfc-arc:nth-child(3){ width:18px;height:18px; }
+
+/* ── SCROLL ARROW (desktop) ── */
+.scroll-arrow {
+  position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
+  z-index:10; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+}
+.scroll-arrow span {
+  font-family:var(--mono); font-size:9px; letter-spacing:.16em;
+  text-transform:uppercase; color:rgba(13,17,23,0.38);
+}
+.arrow-icon {
+  width:36px; height:36px; border-radius:50%;
+  background:var(--glass3); backdrop-filter:blur(8px);
+  border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  animation:arrowBounce 1.8s ease-in-out infinite;
+  box-shadow:var(--shadow);
+  transition:background .2s;
+}
+.scroll-arrow:hover .arrow-icon { background:rgba(26,122,82,0.15); }
+.arrow-icon svg { opacity:.5; }
+@keyframes arrowBounce {
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(6px); }
+}
+
+/* ── MOBILE SWIPE HINT ── */
+.swipe-hint {
+  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+  z-index:10; display:none;
+  flex-direction:column; align-items:center; gap:6px;
+}
+@media(max-width:768px){
+  .scroll-arrow { display:none; }
+  .swipe-hint { display:flex; }
+}
+.swipe-hint span {
+  font-family:var(--mono); font-size:9px; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(13,17,23,0.35);
+}
+.swipe-dots { display:flex; gap:5px; }
+.swipe-dots i {
+  width:5px; height:5px; border-radius:50%;
+  background:rgba(13,17,23,0.18); display:block;
+  animation:dotBlink 1.6s ease infinite;
+}
+.swipe-dots i:nth-child(2){ animation-delay:.2s; }
+.swipe-dots i:nth-child(3){ animation-delay:.4s; }
+@keyframes dotBlink{0%,100%{opacity:.25}50%{opacity:1}}
+
+/* ═══════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════ */
+#main-content { position:relative; z-index:10; }
+
+/* glass section base */
+.glass-section {
+  padding: 96px clamp(24px,6vw,80px);
+  position:relative;
+}
+
+/* ── SECTION HEADERS ── */
+.sec-label {
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--green); margin-bottom:12px;
+  display:flex; align-items:center; gap:10px;
+  opacity:0; transform:translateY(14px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.sec-label::before {
+  content:""; width:0; height:1px; background:var(--green);
+  transition:width .5s .3s ease;
+}
+.sec-label.in::before { width:20px; }
+.sec-label.in { opacity:1; transform:translateY(0); }
+
+.sec-title {
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(38px,5vw,64px);
+  line-height:.95; letter-spacing:-.01em; color:var(--ink);
+  margin-bottom:64px;
+  opacity:0; transform:translateY(24px);
+  transition:opacity .8s .1s cubic-bezier(.16,1,.3,1), transform .8s .1s cubic-bezier(.16,1,.3,1);
+}
+.sec-title.in { opacity:1; transform:translateY(0); }
+.sec-title em { font-style:italic; color:var(--green); }
+
+/* ── GLASS CARD BASE ── */
+.g-card {
+  background:var(--glass);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  transition:transform .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.g-card:hover {
+  background:var(--glass3);
+  box-shadow:var(--shadow2);
+  transform:translateY(-3px);
+}
+
+/* ═══════════════════════════════════════════
+   ABOUT STRIP
+═══════════════════════════════════════════ */
+#about { background:var(--glass); backdrop-filter:blur(30px); border-bottom:1px solid var(--border2); height: 100vh;}
+.about-inner {
+  max-width:900px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+}
+.about-text {
+  font-family:var(--serif); font-size:clamp(17px,2vw,21px);
+  line-height:1.72; color:var(--ink2); font-weight:400;
+  opacity:0; transform:translateX(-20px);
+  transition:opacity .8s .1s ease, transform .8s .1s ease;
+}
+.about-text.in { opacity:1; transform:translateX(0); }
+.about-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.astat {
+  padding:20px; border-radius:14px;
+  background:rgba(255,255,255,0.6);
+  border:1px solid var(--border);
+  text-align:center;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.astat.in { opacity:1; transform:translateY(0); }
+.astat-n { font-family:var(--serif); font-size:38px; font-weight:300; line-height:1; color:var(--ink); }
+.astat-n em { font-style:italic; color:var(--green); }
+.astat-l { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink4); margin-top:6px; }
+
+/* ═══════════════════════════════════════════
+   EXPERIENCE
+═══════════════════════════════════════════ */
+#experience { background:transparent; }
+.exp-grid { display:flex; flex-direction:column; gap:20px; }
+.exp-card {
+  padding:36px 40px; border-radius:20px;
+  background:var(--glass);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:transform .3s ease, box-shadow .3s ease;
+  opacity:0; transform:translateY(24px);
+  /* transition also handles reveal */
+}
+.exp-card.in { opacity:1; transform:translateY(0); }
+.exp-card:hover { transform:translateY(-4px); box-shadow:var(--shadow2); }
+
+.exp-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+.exp-co-wrap { display:flex; flex-direction:column; gap:4px; }
+.exp-co {
+  font-family:var(--sans); font-weight:700; font-size:18px; color:var(--ink);
+  display:flex; align-items:center; gap:10px;
+}
+.eco-dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.eco-dot.past { background:var(--ink4); }
+.eco-dot.live {
+  background:var(--green);
+  box-shadow:0 0 0 3px rgba(26,122,82,0.15);
+  animation:livePulse 2s ease infinite;
+}
+@keyframes livePulse{ 0%,100%{box-shadow:0 0 0 3px rgba(26,122,82,.15)} 50%{box-shadow:0 0 0 6px rgba(26,122,82,.08)} }
+
+.exp-co-link {
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--green); text-decoration:none;
+  opacity:.7; transition:opacity .2s;
+}
+.exp-co-link:hover { opacity:1; }
+
+.exp-right { display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+.exp-period { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--ink4); }
+.exp-badge {
+  font-family:var(--mono); font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; padding:4px 10px; border-radius:4px;
+  background:var(--greenl); color:var(--green); border:1px solid rgba(26,122,82,.2);
+}
+.exp-badge.past { background:rgba(156,163,175,.1); color:var(--ink4); border-color:rgba(156,163,175,.2); }
+.exp-badge.brief { background:rgba(156,163,175,.08); color:var(--ink4); border-color:rgba(156,163,175,.15); }
+
+.exp-role { font-family:var(--serif); font-size:clamp(22px,2.5vw,28px); font-weight:300; color:var(--ink); margin-bottom:12px; line-height:1.1; }
+.exp-role em { font-style:italic; }
+.exp-desc { font-family:var(--serif); font-size:16px; line-height:1.72; color:var(--ink2); margin-bottom:20px; }
+.exp-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.exp-tag {
+  font-family:var(--mono); font-size:10px; letter-spacing:.04em;
+  padding:4px 10px; border-radius:6px;
+  background:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.8);
+  color:var(--ink3); transition:all .2s;
+}
+.exp-tag:hover { background:var(--greenl); border-color:rgba(26,122,82,.3); color:var(--green); }
+
+/* ═══════════════════════════════════════════
+   SKILLS
+═══════════════════════════════════════════ */
+#skills { background:transparent; }
+.skills-wrap {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:16px;
+}
+.skill-card {
+  padding:28px; border-radius:18px;
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(1.3);
+  -webkit-backdrop-filter:blur(18px) saturate(1.3);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  opacity:0; transform:translateY(20px);
+  transition:opacity .6s ease, transform .6s ease, background .3s, box-shadow .3s;
+}
+.skill-card.in { opacity:1; transform:translateY(0); }
+.skill-card:hover { background:var(--glass3); box-shadow:var(--shadow2); transform:translateY(-2px); }
+.skill-cat {
+  font-family:var(--mono); font-size:9px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--green); margin-bottom:16px;
+  padding-bottom:12px; border-bottom:1px solid rgba(26,122,82,.15);
+  display:flex; align-items:center; gap:7px;
+}
+.skill-cat::before { content:""; width:4px; height:4px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.skill-list-g { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.skill-li {
+  font-family:var(--sans); font-size:13px; font-weight:500;
+  color:var(--ink2); display:flex; align-items:center; gap:8px;
+  transition:color .2s, padding-left .2s; cursor:default;
+}
+.skill-li::before {
+  content:""; width:3px; height:3px; border-radius:50%;
+  background:rgba(107,114,128,.4); flex-shrink:0; transition:background .2s;
+}
+.skill-li:hover { color:var(--ink); padding-left:3px; }
+.skill-li:hover::before { background:var(--green); }
+.skill-level {
+  display:inline-flex; align-items:center; gap:4px;
+  margin-left:auto; font-size:9px; letter-spacing:.06em;
+  text-transform:uppercase; font-weight:600;
+  padding:2px 6px; border-radius:4px; flex-shrink:0;
+}
+.skill-level.advanced {
+  background:rgba(26,122,82,.12);
+  color:var(--green);
+}
+.skill-level.intermediate {
+  background:rgba(255,107,61,.15);
+  color:#FF6A3D;
+}
+
+/* ═══════════════════════════════════════════
+   PROJECTS
+═══════════════════════════════════════════ */
+#projects { background:transparent; }
+.proj-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:1600px; }
+.proj-card {
+  padding:44px 40px; border-radius:22px;
+  background:var(--glass);
+  backdrop-filter:blur(22px) saturate(1.5);
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  position:relative; overflow:hidden;
+  opacity:0; transform:translateY(24px);
+  transition:opacity .7s ease, transform .7s ease, box-shadow .3s, background .3s;
+}
+.proj-card.in { opacity:1; transform:translateY(0); }
+.proj-card:hover { background:var(--glass3); box-shadow:var(--shadow2); }
+.proj-card::before {
+  content:""; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  transform:scaleX(0); transform-origin:left; transition:transform .5s ease;
+}
+.proj-card:hover::before { transform:scaleX(1); }
+.proj-num { font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ink4); margin-bottom:20px; }
+.proj-live {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--green);
+  background:var(--greenl); border:1px solid rgba(26,122,82,.2);
+  padding:3px 9px; border-radius:4px; margin-left:10px;
+}
+.proj-live::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--green); animation:livePulse 2s infinite; }
+.proj-offline {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink4);
+  background:rgba(156,163,175,.1); border:1px solid rgba(156,163,175,.22);
+  padding:3px 9px; border-radius:4px; margin-left:10px;
+}
+.proj-offline::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--ink4); }
+.proj-name { font-family:var(--serif); font-size:clamp(28px,3.5vw,38px); font-weight:300; color:var(--ink); margin-bottom:6px; line-height:1.05; }
+.proj-name em { font-style:italic; color:var(--green); }
+.proj-sub { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--green); margin-bottom:18px; opacity:.8; }
+.proj-desc { font-family:var(--serif); font-size:15.5px; line-height:1.72; color:var(--ink2); margin-bottom:24px; }
+.proj-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:32px; }
+.proj-link {
+  font-family:var(--mono); font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink); text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px;
+  border-bottom:1px solid rgba(13,17,23,.25); padding-bottom:2px;
+  transition:color .2s, border-color .2s;
+}
+.proj-link:hover { color:var(--green); border-color:var(--green); }
+.proj-link-arrow { transition:transform .25s ease; }
+.proj-link:hover .proj-link-arrow { transform:translateX(5px); }
+
+/* ═══════════════════════════════════════════
+   PDF DOWNLOAD BUTTON — unique style
+═══════════════════════════════════════════ */
+.pdf-strip {
+  padding:0 clamp(24px,6vw,80px) 80px;
+  display:flex; justify-content:center;
+}
+.pdf-btn {
+  position:relative; display:inline-flex; align-items:center; gap:14px;
+  padding:18px 40px; border-radius:60px; text-decoration:none;
+  overflow:hidden; cursor:none;
+
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.85) 0%,
+      rgba(220,228,238,0.70) 50%,
+      rgba(200,215,225,0.80) 100%
+    );
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.85);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.9) inset,
+    0 12px 40px rgba(0,0,0,.10),
+    0 2px 8px rgba(0,0,0,.06);
+
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.pdf-btn::before {
+  content:""; position:absolute; inset:0; border-radius:60px;
+  background:linear-gradient(90deg,
+    transparent 0%,rgba(26,122,82,.08) 40%,transparent 100%);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .5s ease;
+}
+.pdf-btn:hover::before { transform:scaleX(1); }
+.pdf-btn:hover { transform:translateY(-3px); box-shadow:0 2px 0 rgba(255,255,255,.9) inset, 0 20px 60px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08); }
+
+.pdf-icon {
+  width:38px; height:38px; border-radius:50%;
+  background:var(--green);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; position:relative; z-index:1;
+  box-shadow:0 4px 12px rgba(26,122,82,.35);
+  transition:transform .25s ease;
+}
+.pdf-btn:hover .pdf-icon { transform:rotate(12deg) scale(1.1); }
+.pdf-icon svg { width:16px; height:16px; fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+.pdf-text { position:relative; z-index:1; }
+.pdf-text-top {
+  font-family:var(--sans); font-size:14px; font-weight:700;
+  color:var(--ink); letter-spacing:.02em; display:block;
+}
+.pdf-text-sub {
+  font-family:var(--mono); font-size:9px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink4); display:block; margin-top:1px;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
+#contact {
+  padding:100px clamp(24px,6vw,80px);
+  background:
+    linear-gradient(160deg,
+      rgba(13,17,23,.94) 0%,
+      rgba(20,30,22,.97) 100%
+    );
+  position:relative; overflow:hidden;
+}
+#contact::before {
+  content:""; position:absolute; top:-200px; right:-200px;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle,rgba(26,122,82,.15),transparent 70%);
+  pointer-events:none;
+}
+#contact::after {
+  content:""; position:absolute; bottom:-100px; left:50px;
+  width:350px; height:350px; border-radius:50%;
+  background:radial-gradient(circle,rgba(26,122,82,.08),transparent 70%);
+  pointer-events:none;
+}
+.contact-inner { position:relative; z-index:1; max-width:900px; }
+.contact-eyebrow {
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; color:rgba(255,255,255,.3);
+  margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+.contact-eyebrow::before { content:""; width:20px; height:1px; background:rgba(255,255,255,.2); }
+.contact-head {
+  font-family:var(--serif); font-size:clamp(44px,6vw,80px);
+  font-weight:300; color:#fff; line-height:.93;
+  letter-spacing:-.01em; margin-bottom:56px;
+}
+.contact-head em { font-style:italic; color:rgba(255,255,255,.38); }
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:1px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; overflow:hidden; max-width:720px; margin-bottom:48px;
+}
+.c-item {
+  padding:26px 30px; background:rgba(255,255,255,.03); transition:background .2s;
+}
+.c-item:hover { background:rgba(255,255,255,.06); }
+.c-label { font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:5px; }
+.c-val { font-family:var(--sans); font-size:14px; font-weight:500; color:rgba(255,255,255,.78); text-decoration:none; transition:color .2s; }
+.c-val:hover { color:#7dd3a8; }
+.c-val.avail { color:#7dd3a8; }
+.contact-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.cbtn-prim {
+  background:#fff; color:var(--ink); text-decoration:none;
+  padding:14px 30px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; border-radius:8px;
+  border:1px solid #fff; transition:all .25s; display:inline-block;
+  position:relative; overflow:hidden;
+}
+.cbtn-prim::after { content:""; position:absolute; inset:0; background:var(--green); transform:scaleX(0); transform-origin:left; transition:transform .35s ease; z-index:0; }
+.cbtn-prim span { position:relative; z-index:1; }
+.cbtn-prim:hover::after { transform:scaleX(1); }
+.cbtn-prim:hover { color:#fff; border-color:var(--green); }
+.cbtn-ghost {
+  background:transparent; color:rgba(255,255,255,.55); text-decoration:none;
+  padding:14px 30px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; border-radius:8px;
+  border:1px solid rgba(255,255,255,.18); transition:all .25s; display:inline-block;
+}
+.cbtn-ghost:hover { border-color:rgba(255,255,255,.5); color:#fff; }
+
+/* ── FOOTER ── */
+footer {
+  background:rgba(13,17,23,.98); border-top:1px solid rgba(255,255,255,.06);
+  padding:22px clamp(24px,6vw,80px);
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+.foot-c { font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:rgba(255,255,255,.22); }
+.foot-links { display:flex; gap:22px; }
+.foot-links a { font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,.28); text-decoration:none; transition:color .2s; }
+.foot-links a:hover { color:rgba(255,255,255,.65); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{ width:3px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(26,122,82,.25); border-radius:4px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .about-inner { grid-template-columns:1fr; gap:32px; }
+  .proj-grid { grid-template-columns:1fr; }
+  .edu-grid { grid-template-columns:1fr; gap:24px; }
+  .contact-grid { grid-template-columns:1fr; }
+  .skills-wrap { grid-template-columns:1fr; }
+  .exp-head { flex-direction:column; }
+  .exp-right { align-items:flex-start; }
+}
+@media(max-width:480px){
+  .skills-wrap { grid-template-columns:1fr; }
+  .g-card { padding:32px 24px !important; }
+}
+
+/* ── LANGUAGE SWITCHER ── */
+html.lang-pending #hero-snap,
+html.lang-pending #main-content { opacity:0; }
+#hero-snap, #main-content {
+  transition: opacity .32s ease, filter .32s ease;
+}
+body.lang-switching #hero-snap,
+body.lang-switching #main-content {
+  opacity:.12;
+  filter: blur(4px);
+}
+.lang-modal {
+  position:fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index:9000;
+  display:flex; flex-direction:column; gap:8px; align-items:flex-end;
+  padding:12px 12px 10px;
+  border-radius:16px;
+  background: var(--glass3);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  pointer-events:auto;
+}
+.lang-modal-label {
+  font-family:var(--mono); font-size:8px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink4); padding-right:2px;
+}
+.lang-toggle {
+  display:flex; gap:4px;
+  padding:3px; border-radius:10px;
+  background: rgba(13,17,23,.06);
+}
+.lang-btn {
+  appearance:none; border:0; cursor:none;
+  font-family:var(--mono); font-size:11px; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase;
+  padding:7px 12px; border-radius:8px;
+  color:var(--ink3); background:transparent;
+  transition: background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.lang-btn.is-active {
+  background:#fff; color:var(--green);
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.lang-btn:hover:not(.is-active) { color:var(--ink); }
+@media(max-width:480px){
+  .lang-modal { padding:10px 10px 8px; border-radius:14px; }
+  .lang-btn { padding:6px 10px; font-size:10px; }
+}
+</style>
 </head>
-
 <body>
-    <div class="ambient-bg" aria-hidden="true">
-        <span class="orb orb-1"></span>
-        <span class="orb orb-2"></span>
-        <span class="orb orb-3"></span>
+
+<!-- ── CURSOR ── -->
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- ── LANGUAGE ── -->
+<div id="lang-switch" class="lang-modal" role="group" aria-label="Language">
+  <span class="lang-modal-label" data-i18n="lang.label">Language</span>
+  <div class="lang-toggle">
+    <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" class="lang-btn" data-lang="sv" aria-pressed="false">SV</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+   SECTION 0: HERO — full 100vh bank card
+══════════════════════════════════════ -->
+<section id="hero-snap">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+  <div class="card-wrap">
+    <div class="bank-card" id="bankCard">
+      <img src="/ernestimg.jpeg" alt="Ernest Itengishaka" class="card-profile-img"/>
+      <div class="card-inner">
+
+        <!-- TOP: logo + chip + nfc -->
+        <div class="card-top">
+          <div class="card-logo">EI<em>·</em></div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="card-chip"></div>
+            <div class="card-nfc">
+              <div class="nfc-arc" style="width:8px;height:8px"></div>
+              <div class="nfc-arc" style="width:13px;height:13px"></div>
+              <div class="nfc-arc" style="width:18px;height:18px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MID: name + title -->
+        <div class="card-mid">
+          <span class="card-since" data-i18n="hero.role">Software Engineer</span>
+          <div class="card-name">
+            Ernest
+            <em>Itengishaka</em>
+          </div>
+          <div class="card-title-line" data-i18n="hero.place">Upplands-Bro · Stockholm, Sweden</div>
+        </div>
+
+        <!-- BOTTOM: born + age -->
+        <div class="card-bottom">
+          <div class="card-meta">
+            <span class="card-born-label" data-i18n="hero.born">Born</span>
+            <span class="card-born-val">2001 / 06 / 17</span>
+          </div>
+          <div class="card-age-wrap">
+            <span class="card-age-label" data-i18n="hero.age">Age</span>
+            <div class="card-age">
+              <span id="liveAge">25</span><span class="suffix" data-i18n="hero.yrs">yrs</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 
-     <!-- NAVBAR -->
+  <!-- Desktop: click/scroll arrow -->
+  <div class="scroll-arrow" id="scrollArrow">
+    <span data-i18n="hero.scroll">Scroll</span>
+    <div class="arrow-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M7 2v10M3 8l4 4 4-4"/>
+      </svg>
+    </div>
+  </div>
 
-        <header>
-            <nav class="navbar">
+  <!-- Mobile: swipe hint -->
+  <div class="swipe-hint">
+    <div class="swipe-dots"><i></i><i></i><i></i></div>
+    <span data-i18n="hero.swipe">Swipe up</span>
+  </div>
+</section>
 
-                <div class="logo">
-                    Ernest
-                </div>
+<!-- ══════════════════════════════════════
+   MAIN CONTENT
+══════════════════════════════════════ -->
+<div id="main-content">
 
-                <ul class="nav-links">
-                    <li><a id="nav-home" href="#home">Home</a></li>
-                    <li><a id="nav-about" href="#about">About</a></li>
-                    <li><a id="nav-experience" href="#experience">Experience</a></li>
-                    <li><a id="nav-projects" href="#projects">Live Projects</a></li>
-                    <li><a id="nav-contact" href="#contact">Contact</a></li>
-                </ul>
-
-                <div class="nav-actions">
-
-                    <button id="lang-us"><img src="assets/Icons/flag-for-flag-us-outlying-islands-svgrepo-com.svg" alt="US" /></button>
-                    <button id="lang-se"><img src="assets/Icons/flag-se-svgrepo-com.svg" alt="SE" /></button>
-                    <button id="toggle-mode">Light Mode</button>
-                    <a href="CV/Ernestcv.pdf" class="cv-btn" target="_blank">
-                        View CV
-                    </a>
-
-                </div>
-
-            </nav>
-        </header>
-
-
-    <!-- HOME -->
-
-    <section id="home">
-        <div class="container">
-
-            <h1 id="home-title">Creating Digital Solutions</h1>
-
-            <p id="home-subtitle">
-                In the world of code, every line tells a story, every function solves a problem,
-                and every project makes a difference. Through software development, we don't
-                just build code – we build the future, one commit at a time.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    id="hero-linkedin"
-                    href="https://www.linkedin.com/in/ernest-itangishaka-4a5058383?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn"
-                >View LinkedIn</a>
-
-                <a
-                    id="hero-github"
-                    href="https://github.com/ErnestIssa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn"
-                >View GitHub</a>
-
-            </div>
-
+  <!-- ABOUT -->
+  <section id="about" class="glass-section">
+    <div class="about-inner">
+      <p class="about-text reveal" data-i18n="about.body">
+        Software engineer with a passion for coding and problem-solving, introduced to programming at the age of 18. I thrive on
+        tackling complex challenges, continuously developing my technical skills, and collaborating with teams to drive innovation.
+        I enjoy sharing knowledge, learning from others, and delivering high-quality, impactful solutions that help organizations achieve their goals.
+      </p>
+      <div class="about-stats">
+        <div class="astat reveal" style="transition-delay:.05s">
+          <div class="astat-n"><span class="count" data-target="3">0</span><em>+</em></div>
+          <div class="astat-l" data-i18n="stat.years">Years exp</div>
         </div>
-    </section>
-
-
-    <!-- ABOUT -->
-
-
-    <section id="about">
-        <div class="container">
-
-            <h2 id="about-title">About Me</h2>
-
-            <div class="about-content">
-
-                <h3>Ernest Itengishaka</h3>
-
-                <p id="about-p1">
-                    I am a software developer passionate about building digital
-                    solutions and solving complex technical problems. My journey
-                    into programming started at the age of 16, and since then I
-                    have been driven by curiosity and a desire to continuously
-                    improve my technical skills.
-                </p>
-
-                <p id="about-p2">
-                    I enjoy working on challenging projects, collaborating with
-                    developers, and turning ideas into functional applications.
-                    My focus is on creating scalable, well-structured systems
-                    while constantly learning new technologies and improving
-                    my development practices.
-                </p>
-
-                <p id="about-p3">
-                    Beyond coding, I believe in sharing knowledge, learning from
-                    other developers, and contributing to projects that create
-                    meaningful impact.
-                </p>
-
-            </div>
-
+        <div class="astat reveal" style="transition-delay:.12s">
+          <div class="astat-n"><span class="count" data-target="2">0</span></div>
+          <div class="astat-l" data-i18n="stat.companies">Companies</div>
         </div>
-    </section>
-
-    <section id="skills">
-            <div class="container">
-                <h2 id="skills-title">Skills</h2>
-
-                <div class="skills-grid">
-                    <div class="skill-card" title="JavaScript">
-                        <img src="assets/Icons/JavaScript.png" alt="JavaScript" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="Node.js">
-                        <img src="assets/Icons/nodejs.png" alt="Node.js" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="Express.js">
-                        <img src="assets/Icons/expressjs.png" alt="Express.js" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="React">
-                        <img src="assets/Icons/react.png" alt="React" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="MongoDB">
-                        <img src="assets/Icons/Mongodb.png" alt="MongoDB" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="Netlify">
-                        <img src="assets/Icons/netlify.png" alt="Netlify" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="GitHub">
-                        <img src="assets/Icons/Github.png" alt="GitHub" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="GitLab">
-                        <img src="assets/Icons/Gitlab.png" alt="GitLab" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="Git">
-                        <img src="assets/Icons/Giticon.png" alt="Git" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="Figma">
-                        <img src="assets/Icons/Figmaicon.png" alt="Figma" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="Tailwind CSS">
-                        <img src="assets/Icons/Tailwind.png" alt="Tailwind CSS" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="GraphQL">
-                        <img src="assets/Icons/Graphql.png" alt="GraphQL" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="REST API">
-                        <img src="assets/Icons/RestApi.jpeg" alt="REST API" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                    <div class="skill-card" title="C#">
-                        <img src="assets/Icons/C%23logo.jpeg" alt="C#" width="64" height="64" loading="lazy" decoding="async" />
-                    </div>
-                </div>
-            </div>
-    </section>
-
-
-    <!-- EXPERIENCE -->
-
-    <section id="experience">
-            <div class="container">
-
-                <h2 id="experience-title">Experience</h2>
-
-                <div class="experience-grid">
-                    <div class="experience-card">
-                        <h3>Fullstackutvecklare | Vornify AI</h3>
-                        <span>Bålsta</span>
-                        <ul>
-                            <li>Contributed to AI-driven platform: users discuss technical ideas with AI and connect with development agents.</li>
-                            <li>Implemented backend logic for user interactions and internal workflows.</li>
-                            <li>Worked with RESTful API integrations to connect frontend and backend.</li>
-                            <li>Collaborated in a development team to plan and solve technical problems.</li>
-                            <li>Used AI-assisted development (Cursor AI) to optimize code and focus on application logic.</li>
-                            <li>Contributed to system architecture and functional design.</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-card">
-                        <h3>Peak Mode – Fullstack E-Commerce Platform</h3>
-                        <span>Bålsta</span>
-                        <ul>
-                            <li>Developed fullstack e-commerce platform with customer site and admin dashboard.</li>
-                            <li>Frontend with React & Vite; responsive, component-based design.</li>
-                            <li>Backend with Node.js & Express; MongoDB integration for data management.</li>
-                            <li>Integrated Stripe payments, Cloudinary media handling, deployed via Render.</li>
-                            <li>Structured project for scalability, maintainability, and clear architecture.</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-card">
-                        <h3>Kluret – AI-Driven Product Comparison Platform</h3>
-                        <span>Bålsta</span>
-                        <ul>
-                            <li>Contributed to AI-driven platform for comparing products across multiple e-commerce platforms.</li>
-                            <li>Implemented frontend & backend features for product comparison and data management.</li>
-                            <li>Integrated AI tools and external APIs for price analysis and recommendations.</li>
-                            <li>Collaborated with a development partner on architecture and workflows.</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-card">
-                        <h3>Job Chaser – Full-Stack Job Search App</h3>
-                        <span>React, TypeScript, Node.js, PostgreSQL</span>
-                        <ul>
-                            <li>Built a React + TypeScript SPA with Vite, React Router, and React Hook Form; responsive UI with light/dark theme via React Context.</li>
-                            <li>Implemented global client state with Zustand (persisted auth and job filters in localStorage) and a reducer-style filter model (text, location, category, employment type) applied across pages.</li>
-                            <li>Added protected routes so unauthenticated users are redirected to sign-in for sensitive views.</li>
-                            <li>Integrated a Node.js + Express + TypeScript REST API with PostgreSQL, Drizzle ORM, and startup schema migrations for evolving tables.</li>
-                            <li>Implemented JWT-based authentication, password hashing with bcrypt, and CORS for a separate frontend origin.</li>
-                            <li>Connected to Sweden’s JobTech jobs API, synced listings into the database, and mapped fields such as application URLs, location, occupation, and employment type.</li>
-                            <li>Delivered search/filter, job ads, apply links, and client-side saved/liked plus “recently applied” tracking tied to the logged-in user.</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-card">
-                        <h3>Peak Mode Admin – E-Commerce / Operations Dashboard</h3>
-                        <span>Bålsta</span>
-                        <ul>
-                            <li>Built and maintained a large-scale admin SPA for day-to-day operations: orders (listing, detail, editing, refunds, tracking, insights), products (CRUD, media), customers, shipping (rates, configuration, admin shipment visibility), discount codes, reviews, newsletter and email campaigns, contact messages, and hub-style content (drops, stories, features, dashboard).</li>
-                            <li>Integrated a central API layer (Axios) with typed services, error handling, and many admin endpoints so the UI stays thin and the backend owns business rules.</li>
-                            <li>Implemented role-aware admin flows: login, invites, password reset, profile, and shared admin context for auth and session behaviour across the app.</li>
-                            <li>Delivered complex, data-heavy UIs: dashboards with Recharts, dense tables with filters and pagination, and consistent UX patterns (modals, portals, slide-in panels, scroll containment, layouts that work with long forms).</li>
-                            <li>Used React Hook Form + Zod for validated forms, Tailwind for layout and design-system-style styling, and TypeScript across the codebase for safer refactors on a multi-page app.</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-card">
-                        <h3>FNDRY – Multi-Tenant WaaS Platform for Construction</h3>
-                        <span>SaaS · Multi-tenant · Render · MongoDB · Cloudinary</span>
-                        <ul>
-                            <li>Built a vertical SaaS / website-as-a-service platform so construction companies get branded sites on their own domains, admin workspaces, and tenant-scoped leads, bookings, projects, reviews, and media — from one codebase, one API, one database, and one website deployment.</li>
-                            <li>Designed Host-based multi-tenancy: many custom domains point at the same website service; tenant resolve returns companyId so public and admin queries stay strictly isolated (e.g. verobygg.se vs brevisa.se).</li>
-                            <li>Shipped public tenant websites (hero, services, portfolio, reviews, contact, quotes, booking, optional SV/EN) and a JWT admin with leads, bookings, projects, gallery, branding, and module flags per tenant.</li>
-                            <li>Operated shared platform architecture (website + admin + API on Render, MongoDB Atlas as SSoT, Cloudinary under FNDRY/companies/{companyId}/…) so new clients onboard via company/user + DNS — without a new frontend deploy per brand.</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-    </section>
-
-
-    <!-- PROJECTS -->
-
-    <section id="projects">
-        <div class="container">
-
-            <h2 id="projects-title">Live Projects</h2>
-
-            <div class="carousel-viewport" data-carousel="projects">
-            <div class="projects-cards carousel-track">
-
-                <div class="project-card">
-                    <h3>Peak Mode – Fullstack E-Commerce</h3>
-                    <span>Bålsta</span>
-                    <p>Fullstack e-commerce platform with customer site and admin dashboard. Implemented frontend in React & Vite, backend with Node.js & Express, MongoDB database, Stripe payments, Cloudinary media handling, deployed via Render.</p>
-                    <div class="project-links">
-                        <a href="https://peakmode.se" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
-                        <a href="https://github.com/USBAI/vornify_server" target="_blank" rel="noopener noreferrer">View Code</a>
-                    </div>
-                    <div class="project-tech">
-                        React, Node.js, Express, MongoDB, Stripe, Cloudinary, Render
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>Vornify AI</h3>
-                    <span>Bålsta</span>
-                    <p>AI-driven platform where users discuss technical ideas with AI and connect with development agents. Backend logic for user interactions, RESTful API integrations, and collaboration in a team environment — with focus on architecture and maintainable application code.</p>
-                    <div class="project-links">
-                        <a href="https://vornify.se" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
-                        <a href="https://github.com/ErnestIssa" target="_blank" rel="noopener noreferrer">View Code</a>
-                    </div>
-                    <div class="project-tech">
-                        React, Node.js, Express, REST APIs, AI integrations, Cursor-assisted development
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>Peak Mode Admin – Operations Dashboard</h3>
-                    <span>Bålsta</span>
-                    <p>Developed a React/TypeScript admin dashboard for e-commerce operations—orders, inventory, shipping, CRM, marketing, and content—integrated with REST APIs, strong typing, and form validation. Large-scale SPA covering orders, products, customers, shipping, discounts, reviews, campaigns, and hub content, with Recharts analytics and role-aware admin flows.</p>
-                    <div class="project-links">
-                        <a href="https://peakmode-admin.onrender.com" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
-                        <a href="https://github.com/USBAI/vornify_server" target="_blank" rel="noopener noreferrer">View Code</a>
-                    </div>
-                    <div class="project-tech">
-                        React, TypeScript, Vite, Tailwind CSS, React Router, Axios, React Hook Form, Zod, Recharts
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h3>FNDRY – Construction WaaS Platform</h3>
-                    <span>Multi-tenant SaaS · Website + Admin + API</span>
-                    <p>Vertical SaaS / website-as-a-service for construction companies: one product powers many brands on their own domains (e.g. verobygg.se), each with a tenant admin, leads, bookings, projects, reviews, and media — while sharing one codebase, API, database, and website deployment. Host resolves to companyId; data stays strictly tenant-scoped. Live platform at fndry.se with a separate admin app.</p>
-                    <div class="project-links">
-                        <a href="https://fndry.se" target="_blank" rel="noopener noreferrer" class="btn-view-live"><span class="btn-view-live-inner">View Live</span></a>
-                        <a href="https://github.com/ErnestIssa" target="_blank" rel="noopener noreferrer">View Code</a>
-                    </div>
-                    <div class="project-tech">
-                        Multi-tenant architecture, Render, MongoDB Atlas, Cloudinary, JWT admin, custom domains
-                    </div>
-                </div>
-
-            </div>
-            </div>
-
-            <div class="projects-pagination carousel-pagination"></div>
-
+        <div class="astat reveal" style="transition-delay:.19s">
+          <div class="astat-n"><em><span class="count" data-target="2">0</span></em></div>
+          <div class="astat-l" data-i18n="stat.ai">AI products</div>
         </div>
-    </section>
+        <div class="astat reveal" style="transition-delay:.26s">
+          <div class="astat-n"><span class="count" data-target="25">0</span><em>+</em></div>
+          <div class="astat-l" data-i18n="stat.tech">Technologies</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- EXPERIENCE -->
+  <section id="experience" class="glass-section">
+    <div class="sec-label reveal" data-i18n="exp.label">Experience</div>
+    <h2 class="sec-title reveal" data-i18n-html="exp.title">Work <em>History</em></h2>
 
-    <!-- CONTACT -->
+    <div class="exp-grid">
 
-    <section id="contact">
-        <div class="container">
-
-            <h2 id="contact-title">Contact Me</h2>
-
-            <div class="contact-content">
-
-                <div class="contact-info">
-                    <p><strong>Address:</strong> Kapellgatan 10, 746 49 Bålsta</p>
-                    <p><strong>Phone:</strong> +46 76-036 83 49</p>
-                    <p><strong>Email:</strong> <a href="mailto:ernestissa100@gmail.com">ernestissa100@gmail.com</a></p>
-                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ernest-itangishaka-4a5058383?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">linkedin.com/in/ernest-itangishaka</a></p>
-                    <p><strong>GitHub:</strong> <a href="https://github.com/ErnestIssa" target="_blank">github.com/ErnestIssa</a></p>
-                </div>
-
-                <div class="contact-form">
-                    <form id="contact-form" novalidate>
-                        <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your Name" required maxlength="120" />
-                        <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your Email" required maxlength="254" />
-                        <textarea id="contact-message" name="message" placeholder="Your Message" rows="5" required maxlength="10000"></textarea>
-                        <p class="contact-form-error" id="contact-form-error" role="alert" hidden></p>
-                        <button type="submit" id="contact-submit"><span class="contact-submit-label" id="contact-submit-label">Send Message</span></button>
-                    </form>
-                </div>
-
+      <!-- VORNIFY AI -->
+      <div class="exp-card reveal" style="transition-delay:.04s">
+        <div class="exp-head">
+          <div class="exp-co-wrap">
+            <div class="exp-co"><span class="eco-dot live"></span>Vornify AI
+              <a href="https://vornify.se" target="_blank" class="exp-co-link">↗ vornify.se</a>
             </div>
-
+            <span style="font-family:var(--mono);font-size:10px;color:var(--ink4)" data-i18n="exp.vornify.meta">AI Web Development Platform · Stockholm</span>
+          </div>
+          <div class="exp-right">
+            <span class="exp-period" data-i18n="exp.vornify.period">Aug 2025 — Present</span>
+            <span class="exp-badge" data-i18n="exp.current">Current</span>
+          </div>
         </div>
-    </section>
+        <div class="exp-role" data-i18n-html="exp.vornify.role">Software <em>Engineer</em></div>
+        <p class="exp-desc" data-i18n="exp.vornify.desc">Moved from supporting and building e-commerce platforms (React, Vite, Node.js, Express, MongoDB, Stripe) into delivering production-ready web applications through fullstack development with React, Next.js, Python, FastAPI, and cloud AI. Also responsible for IT infrastructure — servers, SSH and access management, monitoring, and CI/CD pipelines — focused on scalable architecture, uptime, and reliable client workflows.</p>
+        <div class="exp-tags">
+          <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
+          <span class="exp-tag">FastAPI</span><span class="exp-tag">Vite</span><span class="exp-tag">Node.js</span>
+          <span class="exp-tag">Express.js</span><span class="exp-tag">MongoDB</span><span class="exp-tag">Stripe</span>
+          <span class="exp-tag">Cloud AI</span><span class="exp-tag">CI/CD Pipelines</span><span class="exp-tag">SSH &amp; Access</span>
+          <span class="exp-tag">Monitoring</span><span class="exp-tag">System Architecture</span>
+        </div>
+      </div>
 
-    <dialog class="contact-success-dialog" id="contact-success-dialog" aria-labelledby="contact-success-title">
-        <div class="contact-success-inner">
-            <div class="contact-success-glow" aria-hidden="true"></div>
-            <button type="button" class="contact-success-close" id="contact-success-close" aria-label="Close">&times;</button>
-            <div class="contact-success-icon-wrap" aria-hidden="true">
-                <svg class="contact-success-check" viewBox="0 0 64 64" width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="contact-success-circle" cx="32" cy="32" r="28" stroke="url(#cs-grad)" stroke-width="2.5" />
-                    <path class="contact-success-tick" d="M20 33l8 8 16-18" stroke="url(#cs-grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <defs>
-                        <linearGradient id="cs-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#ff4d8d" />
-                            <stop offset="50%" stop-color="#67e8f9" />
-                            <stop offset="100%" stop-color="#3b82f6" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+      <!-- VERO BYGG AB -->
+      <div class="exp-card reveal" style="transition-delay:.1s;border-left:3px solid rgba(26,122,82,.2)">
+        <div class="exp-head">
+          <div class="exp-co-wrap">
+            <div class="exp-co"><span class="eco-dot past"></span>Vero Bygg AB
+              <a href="https://verobygg.se" target="_blank" class="exp-co-link">↗ verobygg.se</a>
             </div>
-            <h3 id="contact-success-title" class="contact-success-title">Message sent</h3>
-            <p class="contact-success-text">Thank you for reaching out. I’ll get back to you as soon as I can.</p>
-            <button type="button" class="contact-success-cta" id="contact-success-ok">Done</button>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--ink4)" data-i18n="exp.vero.meta">Construction &amp; Groundwork · Stockholm</span>
+          </div>
+          <div class="exp-right">
+            <span class="exp-period" data-i18n="exp.vero.period">Feb 2023 — Jul 2025</span>
+            <span class="exp-badge past" data-i18n="exp.past">Past</span>
+          </div>
         </div>
-    </dialog>
-
-    <dialog class="lang-success-dialog" id="lang-success-dialog" aria-labelledby="lang-success-title">
-        <div class="lang-success-inner">
-            <div class="lang-success-glow" aria-hidden="true"></div>
-            <button type="button" class="lang-success-close" id="lang-success-close" aria-label="Close">
-                &times;
-            </button>
-            <h3 id="lang-success-title" class="lang-success-title">Language updated</h3>
-            <p id="lang-success-text" class="lang-success-text">Done.</p>
+        <div class="exp-role" data-i18n-html="exp.vero.role">Fullstack <em>Developer</em></div>
+        <p class="exp-desc" data-i18n="exp.vero.desc">Development of the digital platform for a Swedish construction and groundwork company, combining a responsive Next.js website with a project showcase and quote-request flow. Fullstack implementation across React and Next.js frontends, Python and Django backends, and database-driven content management for projects and customer inquiries. Contributed to hosting setup, deployment pipelines, and system architecture decisions — built for performance, reliability, and easy day-to-day use by a small team.</p>
+        <div class="exp-tags">
+          <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
+          <span class="exp-tag">Django</span><span class="exp-tag">CMS</span><span class="exp-tag">Quote requests</span>
+          <span class="exp-tag">Hosting</span><span class="exp-tag">CI/CD Pipelines</span><span class="exp-tag">System Architecture</span>
         </div>
-    </dialog>
+      </div>
 
-  <script src="script.js"></script>
+    </div>
+  </section>
 
+  <!-- SKILLS -->
+  <section id="skills" class="glass-section">
+    <div class="sec-label reveal" data-i18n="skills.label">Expertise</div>
+    <h2 class="sec-title reveal" data-i18n-html="skills.title">Skills &amp; <em>Stack</em></h2>
+    <div class="skills-wrap">
+
+      <div class="skill-card reveal" style="transition-delay:.04s">
+        <div class="skill-cat" data-i18n="cat.frontend">Frontend</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">React.js &amp; Next.js <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">React Native / Expo <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">TypeScript / JavaScript <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Tailwind CSS <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">HTML5 &amp; CSS3 <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li"><span data-i18n="sk.responsive">Responsive Design</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Figma (UI/UX) <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.1s">
+        <div class="skill-cat" data-i18n="cat.backend">Backend</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">Node.js / Express.js <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Python / Django / FastAPI <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">GraphQL <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li"><span data-i18n="sk.rest">REST API Design</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">C# / .NET Core <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Java / Spring-Boot <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Apache Kafka <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.16s">
+        <div class="skill-cat" data-i18n="cat.cloud">Cloud &amp; Data</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">AWS (Lambda, S3, RDS, EC2…) <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">PostgreSQL / MongoDB <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Elasticsearch / OpenSearch <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Firebase <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Grafana <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">TensorFlow / OpenAI APIs <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.22s">
+        <div class="skill-cat" data-i18n="cat.devops">DevOps</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">Docker &amp; Kubernetes <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">CI/CD Pipelines <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Git &amp; GitHub <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">JFrog <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">SSH &amp; PowerShell <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">AWS CloudFormation <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.28s;grid-column:span 1">
+        <div class="skill-cat" data-i18n="cat.iac">IaC</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">Terraform <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li"><span data-i18n="sk.iac">Infrastructure as Code</span> <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">AWS CloudFormation <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li"><span data-i18n="sk.provision">Cloud resource provisioning</span> <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li"><span data-i18n="sk.state">State management</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.34s">
+        <div class="skill-cat" data-i18n="cat.ai">AI &amp; Soft Skills</div>
+        <ul class="skill-list-g">
+          <li class="skill-li"><span data-i18n="sk.aiml">AI/ML Integration</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li"><span data-i18n="sk.prompt">Prompt Engineering</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li"><span data-i18n="sk.lead">Team Leadership</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Agile / Scrum <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li"><span data-i18n="sk.arch">System Architecture</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li"><span data-i18n="sk.client">Client Relations</span> <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.40s">
+        <div class="skill-cat" data-i18n="cat.it">IT Support</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">Helpdesk &amp; Ticketing Systems <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Hardware Troubleshooting <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Software Installation &amp; Configuration <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Remote Desktop Support <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">User Account Management <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">SLA &amp; Incident Management <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.46s">
+        <div class="skill-cat" data-i18n="cat.net">Networking &amp; Systems</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">TCP/IP &amp; DNS Configuration <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">VPN Setup &amp; Management <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Firewall &amp; Network Security Basics <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">LAN/WAN Troubleshooting <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Active Directory <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">OSI Model &amp; Protocols <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.52s">
+        <div class="skill-cat" data-i18n="cat.os">Operating Systems</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">Windows 10/11 Administration <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Linux (Ubuntu/Debian) <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">macOS Support <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">System Imaging &amp; Backup <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">File System Management <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">OS Troubleshooting &amp; Recovery <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-card reveal" style="transition-delay:.58s">
+        <div class="skill-cat" data-i18n="cat.sec">Security &amp; Compliance</div>
+        <ul class="skill-list-g">
+          <li class="skill-li">Cybersecurity Fundamentals <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Access Control &amp; Permissions <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">Endpoint Security <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Data Backup &amp; Recovery <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+          <li class="skill-li">Password &amp; Identity Management <span class="skill-level advanced" data-i18n="lvl.adv">Advanced</span></li>
+          <li class="skill-li">GDPR Awareness <span class="skill-level intermediate" data-i18n="lvl.int">Intermediate</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="glass-section">
+    <div class="sec-label reveal" data-i18n="proj.label">Projects</div>
+    <h2 class="sec-title reveal" data-i18n-html="proj.title">Selected <em>Work</em></h2>
+    <div class="proj-grid">
+
+      <div class="proj-card reveal" style="transition-delay:.06s">
+        <div class="proj-num">01 <span class="proj-live" data-i18n="badge.live">Live</span></div>
+        <h3 class="proj-name">Peak <em>Mode</em></h3>
+        <div class="proj-sub" data-i18n="proj.peak.sub">Fullstack E-Commerce Platform</div>
+        <p class="proj-desc" data-i18n="proj.peak.desc">A fullstack athletic wear platform — customer storefront and internal admin dashboard in one product suite. React and Vite on the frontend, Node.js, Express, and MongoDB on the backend, with Stripe payments, Cloudinary media, and Render deployment.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">React.js</span><span class="exp-tag">Vite</span><span class="exp-tag">TypeScript</span>
+          <span class="exp-tag">Node.js</span><span class="exp-tag">MongoDB</span><span class="exp-tag">Stripe</span>
+          <span class="exp-tag">Cloudinary</span><span class="exp-tag">Render</span>
+        </div>
+        <a href="https://peakmode.se/" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal" style="transition-delay:.14s">
+        <div class="proj-num">02 <span class="proj-offline" data-i18n="badge.offline">Offline</span></div>
+        <h3 class="proj-name">Kluret <em>AI</em></h3>
+        <div class="proj-sub" data-i18n="proj.kluret.sub">AI E-commerce Search Engine</div>
+        <p class="proj-desc" data-i18n="proj.kluret.desc">An AI-driven search engine for product discovery on European e-commerce platforms. Machine learning with intelligent search and real-time catalog insights — fullstack across React, Next.js, Python, Django, TensorFlow, and Elasticsearch.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
+          <span class="exp-tag">Django</span><span class="exp-tag">TensorFlow</span><span class="exp-tag">OpenAI APIs</span>
+          <span class="exp-tag">Elasticsearch</span><span class="exp-tag">AWS</span><span class="exp-tag">Docker</span>
+        </div>
+        <a href="https://kluret.se" target="_blank" class="proj-link"><span data-i18n="proj.domain">View domain</span> <span class="proj-link-arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal" style="transition-delay:.22s">
+        <div class="proj-num">03 <span class="proj-live" data-i18n="badge.live">Live</span></div>
+        <h3 class="proj-name">FNDRY</h3>
+        <div class="proj-sub" data-i18n="proj.fndry.sub">Vertical SaaS · Construction WaaS</div>
+        <p class="proj-desc" data-i18n="proj.fndry.desc">A multi-tenant website-as-a-service platform for construction companies — one product, many brands. Each tenant gets a public site on their own domain, a separate admin workspace, and isolated leads, bookings, projects, reviews, and media. Shared website, admin, and API; the request host resolves the company. First live tenant: Vero Bygg AB.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">Multi-tenant</span><span class="exp-tag">React.js</span><span class="exp-tag">Node.js</span>
+          <span class="exp-tag">MongoDB</span><span class="exp-tag">JWT</span><span class="exp-tag">Cloudinary</span>
+          <span class="exp-tag">Render</span><span class="exp-tag">Custom domains</span>
+        </div>
+        <a href="https://fndry.se" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal" style="transition-delay:.30s">
+        <div class="proj-num">04 <span class="proj-live" data-i18n="badge.live">Live</span></div>
+        <h3 class="proj-name">Serve<em>OS</em></h3>
+        <div class="proj-sub" data-i18n="proj.serve.sub">Restaurant Operations Platform</div>
+        <p class="proj-desc" data-i18n="proj.serve.desc">A restaurant platform of connected experiences on one backend — not a single app. Desktop admin is the control center for menu, staff, orders, and payments. One Expo mobile app switches by role for owners, staff, and guests. Public QR ordering lets diners browse, cart, pay, and track without installing anything. Built for live orders, with integrations for KDS, existing checkout hardware, and quick-checkout screens.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">React Native</span><span class="exp-tag">Expo</span><span class="exp-tag">React + Vite</span>
+          <span class="exp-tag">TypeScript</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">Prisma</span>
+          <span class="exp-tag">Redis</span><span class="exp-tag">Socket.io</span><span class="exp-tag">Stripe / Swish</span>
+          <span class="exp-tag">TurboRepo</span><span class="exp-tag">QR ordering</span><span class="exp-tag">KDS</span>
+        </div>
+        <a href="https://serveos.se" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- EDUCATION -->
+  <section id="education" class="glass-section" style="padding-top:0">
+    <div class="sec-label reveal" data-i18n="edu.label">Education</div>
+    <h2 class="sec-title reveal" data-i18n-html="edu.title"><em>Academic</em> Background</h2>
+    <div class="edu-grid">
+      <div class="g-card reveal" style="padding:48px 44px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:16px">YHögskolan | Chas Academy</div>
+        <div style="font-family:var(--serif);font-size:clamp(32px,4vw,46px);font-weight:300;line-height:1.05;color:var(--ink);margin-bottom:24px" data-i18n-html="edu.chas.deg">Software <em style="font-style:italic;color:var(--green)">Engineering</em></div>
+        <p style="font-family:var(--serif);font-size:16px;line-height:1.72;color:var(--ink2)" data-i18n="edu.chas.desc">Comprehensive software development programme focusing on modern web development, cloud technologies, and AI integration. Built a strong foundation across the full software development lifecycle — from system architecture to production deployment.</p>
+      </div>
+      <div class="g-card reveal" style="padding:48px 44px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:16px" data-i18n="edu.kth.school">KTH | Royal Institute of Technology</div>
+        <div style="font-family:var(--serif);font-size:clamp(32px,4vw,46px);font-weight:300;line-height:1.05;color:var(--ink);margin-bottom:24px" data-i18n-html="edu.kth.deg">Computer <em style="font-style:italic;color:var(--green)">Science</em></div>
+        <p style="font-family:var(--serif);font-size:16px;line-height:1.72;color:var(--ink2)" data-i18n="edu.kth.desc">Enrolled in the Computer Science programme at Sweden's leading technical university. Focused on theoretical foundations and advanced algorithmic thinking before transitioning to hands-on professional experience in the software industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-eyebrow reveal" data-i18n="contact.eyebrow">Let's connect</div>
+      <h2 class="contact-head reveal" data-i18n-html="contact.head">Ready to build<br/><em>something great?</em></h2>
+      <div class="contact-grid reveal" style="transition-delay:.1s">
+        <div class="c-item">
+          <div class="c-label" data-i18n="contact.email">Email</div>
+          <a href="mailto:ernestissa100@gmail.com" class="c-val">ernestissa100@gmail.com</a>
+        </div>
+        <div class="c-item">
+          <div class="c-label" data-i18n="contact.phone">Phone</div>
+          <a href="tel:+46760368349" class="c-val">+46 76-036 83 49</a>
+        </div>
+        <div class="c-item">
+          <div class="c-label" data-i18n="contact.location">Location</div>
+          <span class="c-val" data-i18n="contact.place">Upplands-Bro, Sweden</span>
+        </div>
+        <div class="c-item">
+          <div class="c-label" data-i18n="contact.avail">Availability</div>
+          <span class="c-val avail" data-i18n="contact.open">Open to opportunities</span>
+        </div>
+      </div>
+      <div class="contact-btns reveal" style="transition-delay:.2s">
+        <a href="mailto:ernestissa100@gmail.com" class="cbtn-prim"><span data-i18n="contact.send">Send email</span></a>
+        <a href="https://www.linkedin.com/in/ernest-itangishaka-4a5058383/" target="_blank" class="cbtn-ghost">LinkedIn</a>
+        <a href="https://github.com/ErnestIssa" target="_blank" class="cbtn-ghost">GitHub</a>
+        <a href="https://ernesti-portfolio.vercel.app/" target="_blank" class="cbtn-ghost" data-i18n="contact.portfolio">Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="foot-c" data-i18n="footer.copy">© 2026 All Rights Reserved | Ernest Itengishaka</span>
+    <div class="foot-links">
+      <a href="https://ernesti-portfolio.vercel.app/" target="_blank" data-i18n="contact.portfolio">Portfolio</a>
+      <a href="https://www.linkedin.com/in/ernest-itangishaka-4a5058383/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/ErnestIssa" target="_blank">GitHub</a>
+    </div>
+  </footer>
+</div><!-- /main-content -->
+
+<script>
+/* ──────── i18n ──────── */
+const I18N = {
+  en: {
+    'meta.title': 'Ernest Itengishaka — Software Engineer',
+    'lang.label': 'Language',
+    'hero.role': 'Software Engineer',
+    'hero.place': 'Upplands-Bro · Stockholm, Sweden',
+    'hero.born': 'Born',
+    'hero.age': 'Age',
+    'hero.yrs': 'yrs',
+    'hero.scroll': 'Scroll',
+    'hero.swipe': 'Swipe up',
+    'about.body': 'Software engineer with a passion for coding and problem-solving, introduced to programming at the age of 18. I thrive on tackling complex challenges, continuously developing my technical skills, and collaborating with teams to drive innovation. I enjoy sharing knowledge, learning from others, and delivering high-quality, impactful solutions that help organizations achieve their goals.',
+    'stat.years': 'Years exp',
+    'stat.companies': 'Companies',
+    'stat.ai': 'AI products',
+    'stat.tech': 'Technologies',
+    'exp.label': 'Experience',
+    'exp.title': 'Work <em>History</em>',
+    'exp.current': 'Current',
+    'exp.past': 'Past',
+    'exp.vornify.meta': 'AI Web Development Platform · Stockholm',
+    'exp.vornify.period': 'Aug 2025 — Present',
+    'exp.vornify.role': 'Software <em>Engineer</em>',
+    'exp.vornify.desc': 'Moved from supporting and building e-commerce platforms (React, Vite, Node.js, Express, MongoDB, Stripe) into delivering production-ready web applications through fullstack development with React, Next.js, Python, FastAPI, and cloud AI. Also responsible for IT infrastructure — servers, SSH and access management, monitoring, and CI/CD pipelines — focused on scalable architecture, uptime, and reliable client workflows.',
+    'exp.vero.meta': 'Construction & Groundwork · Stockholm',
+    'exp.vero.period': 'Feb 2023 — Jul 2025',
+    'exp.vero.role': 'Fullstack <em>Developer</em>',
+    'exp.vero.desc': 'Development of the digital platform for a Swedish construction and groundwork company, combining a responsive Next.js website with a project showcase and quote-request flow. Fullstack implementation across React and Next.js frontends, Python and Django backends, and database-driven content management for projects and customer inquiries. Contributed to hosting setup, deployment pipelines, and system architecture decisions — built for performance, reliability, and easy day-to-day use by a small team.',
+    'skills.label': 'Expertise',
+    'skills.title': 'Skills &amp; <em>Stack</em>',
+    'lvl.adv': 'Advanced',
+    'lvl.int': 'Intermediate',
+    'cat.frontend': 'Frontend',
+    'cat.backend': 'Backend',
+    'cat.cloud': 'Cloud & Data',
+    'cat.devops': 'DevOps',
+    'cat.iac': 'IaC',
+    'cat.ai': 'AI & Soft Skills',
+    'cat.it': 'IT Support',
+    'cat.net': 'Networking & Systems',
+    'cat.os': 'Operating Systems',
+    'cat.sec': 'Security & Compliance',
+    'sk.responsive': 'Responsive Design',
+    'sk.rest': 'REST API Design',
+    'sk.iac': 'Infrastructure as Code',
+    'sk.provision': 'Cloud resource provisioning',
+    'sk.state': 'State management',
+    'sk.aiml': 'AI/ML Integration',
+    'sk.prompt': 'Prompt Engineering',
+    'sk.lead': 'Team Leadership',
+    'sk.arch': 'System Architecture',
+    'sk.client': 'Client Relations',
+    'proj.label': 'Projects',
+    'proj.title': 'Selected <em>Work</em>',
+    'badge.live': 'Live',
+    'badge.offline': 'Offline',
+    'proj.view': 'View project',
+    'proj.domain': 'View domain',
+    'proj.peak.sub': 'Fullstack E-Commerce Platform',
+    'proj.peak.desc': 'A fullstack athletic wear platform — customer storefront and internal admin dashboard in one product suite. React and Vite on the frontend, Node.js, Express, and MongoDB on the backend, with Stripe payments, Cloudinary media, and Render deployment.',
+    'proj.kluret.sub': 'AI E-commerce Search Engine',
+    'proj.kluret.desc': 'An AI-driven search engine for product discovery on European e-commerce platforms. Machine learning with intelligent search and real-time catalog insights — fullstack across React, Next.js, Python, Django, TensorFlow, and Elasticsearch.',
+    'proj.fndry.sub': 'Vertical SaaS · Construction WaaS',
+    'proj.fndry.desc': 'A multi-tenant website-as-a-service platform for construction companies — one product, many brands. Each tenant gets a public site on their own domain, a separate admin workspace, and isolated leads, bookings, projects, reviews, and media. Shared website, admin, and API; the request host resolves the company. First live tenant: Vero Bygg AB.',
+    'proj.serve.sub': 'Restaurant Operations Platform',
+    'proj.serve.desc': 'A restaurant platform of connected experiences on one backend — not a single app. Desktop admin is the control center for menu, staff, orders, and payments. One Expo mobile app switches by role for owners, staff, and guests. Public QR ordering lets diners browse, cart, pay, and track without installing anything. Built for live orders, with integrations for KDS, existing checkout hardware, and quick-checkout screens.',
+    'edu.label': 'Education',
+    'edu.title': '<em>Academic</em> Background',
+    'edu.chas.deg': 'Software <em style="font-style:italic;color:var(--green)">Engineering</em>',
+    'edu.chas.desc': 'Comprehensive software development programme focusing on modern web development, cloud technologies, and AI integration. Built a strong foundation across the full software development lifecycle — from system architecture to production deployment.',
+    'edu.kth.school': 'KTH | Royal Institute of Technology',
+    'edu.kth.deg': 'Computer <em style="font-style:italic;color:var(--green)">Science</em>',
+    'edu.kth.desc': "Enrolled in the Computer Science programme at Sweden's leading technical university. Focused on theoretical foundations and advanced algorithmic thinking before transitioning to hands-on professional experience in the software industry.",
+    'contact.eyebrow': "Let's connect",
+    'contact.head': 'Ready to build<br/><em>something great?</em>',
+    'contact.email': 'Email',
+    'contact.phone': 'Phone',
+    'contact.location': 'Location',
+    'contact.place': 'Upplands-Bro, Sweden',
+    'contact.avail': 'Availability',
+    'contact.open': 'Open to opportunities',
+    'contact.send': 'Send email',
+    'contact.portfolio': 'Portfolio',
+    'footer.copy': '© 2026 All Rights Reserved | Ernest Itengishaka'
+  },
+  sv: {
+    'meta.title': 'Ernest Itengishaka — Mjukvaruingenjör',
+    'lang.label': 'Språk',
+    'hero.role': 'Mjukvaruingenjör',
+    'hero.place': 'Upplands-Bro · Stockholm, Sverige',
+    'hero.born': 'Född',
+    'hero.age': 'Ålder',
+    'hero.yrs': 'år',
+    'hero.scroll': 'Scrolla',
+    'hero.swipe': 'Svep upp',
+    'about.body': 'Mjukvaruingenjör med passion för kod och problemlösning, som började programmera vid 18 års ålder. Jag trivs med komplexa utmaningar, utvecklar ständigt mina tekniska färdigheter och samarbetar i team för att driva innovation. Jag gillar att dela kunskap, lära av andra och leverera högkvalitativa lösningar som hjälper organisationer att nå sina mål.',
+    'stat.years': 'Års erfarenhet',
+    'stat.companies': 'Företag',
+    'stat.ai': 'AI-produkter',
+    'stat.tech': 'Teknologier',
+    'exp.label': 'Erfarenhet',
+    'exp.title': 'Arbets<em>historik</em>',
+    'exp.current': 'Nuvarande',
+    'exp.past': 'Tidigare',
+    'exp.vornify.meta': 'AI-webbutvecklingsplattform · Stockholm',
+    'exp.vornify.period': 'Aug 2025 — nu',
+    'exp.vornify.role': 'Mjukvaru<em>ingenjör</em>',
+    'exp.vornify.desc': 'Gick från att stötta och bygga e-handelsplattformar (React, Vite, Node.js, Express, MongoDB, Stripe) till att leverera produktionsklara webbapplikationer genom fullstackutveckling med React, Next.js, Python, FastAPI och moln-AI. Ansvarar även för IT-infrastruktur — servrar, SSH och åtkomsthantering, övervakning och CI/CD-pipelines — med fokus på skalbar arkitektur, upptid och pålitliga kundflöden.',
+    'exp.vero.meta': 'Bygg & markarbete · Stockholm',
+    'exp.vero.period': 'Feb 2023 — Jul 2025',
+    'exp.vero.role': 'Fullstack<em>utvecklare</em>',
+    'exp.vero.desc': 'Utveckling av den digitala plattformen för ett svenskt bygg- och markentreprenadföretag, med en responsiv Next.js-webbplats, projektgalleri och offertförfrågan. Fullstackimplementation med React och Next.js i frontend, Python och Django i backend, samt databasstyrd innehållshantering för projekt och kundförfrågningar. Bidrog till hosting, deploypipelines och arkitekturbeslut — byggt för prestanda, tillförlitlighet och enkel vardagsanvändning för ett litet team.',
+    'skills.label': 'Kompetens',
+    'skills.title': 'Kompetens &amp; <em>stack</em>',
+    'lvl.adv': 'Avancerad',
+    'lvl.int': 'Medel',
+    'cat.frontend': 'Frontend',
+    'cat.backend': 'Backend',
+    'cat.cloud': 'Moln & data',
+    'cat.devops': 'DevOps',
+    'cat.iac': 'IaC',
+    'cat.ai': 'AI & mjuka färdigheter',
+    'cat.it': 'IT-support',
+    'cat.net': 'Nätverk & system',
+    'cat.os': 'Operativsystem',
+    'cat.sec': 'Säkerhet & efterlevnad',
+    'sk.responsive': 'Responsiv design',
+    'sk.rest': 'REST API-design',
+    'sk.iac': 'Infrastructure as Code',
+    'sk.provision': 'Molnresurser',
+    'sk.state': 'Tillståndshantering',
+    'sk.aiml': 'AI/ML-integration',
+    'sk.prompt': 'Prompt engineering',
+    'sk.lead': 'Teamledning',
+    'sk.arch': 'Systemarkitektur',
+    'sk.client': 'Kundrelationer',
+    'proj.label': 'Projekt',
+    'proj.title': 'Utvalt <em>arbete</em>',
+    'badge.live': 'Live',
+    'badge.offline': 'Offline',
+    'proj.view': 'Visa projekt',
+    'proj.domain': 'Visa domän',
+    'proj.peak.sub': 'Fullstack e-handelsplattform',
+    'proj.peak.desc': 'En fullstackplattform för sportkläder — kundbutik och intern admin-dashboard i samma produktsvit. React och Vite i frontend, Node.js, Express och MongoDB i backend, med Stripe-betalningar, Cloudinary-media och Render-drift.',
+    'proj.kluret.sub': 'AI-sökmotor för e-handel',
+    'proj.kluret.desc': 'En AI-driven sökmotor för produktupptäckt på europeiska e-handelsplattformar. Maskininlärning med intelligent sökning och realtidsinsikter i katalogen — fullstack med React, Next.js, Python, Django, TensorFlow och Elasticsearch.',
+    'proj.fndry.sub': 'Vertikal SaaS · WaaS för bygg',
+    'proj.fndry.desc': 'En multitenant website-as-a-service-plattform för byggföretag — en produkt, många varumärken. Varje kund får en publik sajt på egen domän, en separat adminvy och isolerade leads, bokningar, projekt, omdömen och media. Gemensam webb, admin och API; requestens host avgör företaget. Första live-kunden: Vero Bygg AB.',
+    'proj.serve.sub': 'Plattform för restaurangdrift',
+    'proj.serve.desc': 'En restaurangplattform med kopplade upplevelser mot samma backend — inte en enda app. Webbadmin är kontrollcentralen för meny, personal, ordrar och betalningar. En Expo-mobilapp växlar efter roll för ägare, personal och gäster. Publik QR-beställning låter gäster bläddra, lägga i varukorg, betala och följa ordern utan att installera något. Byggt för liveordrar, med integrationer för KDS, befintlig kassahårdvara och snabbkassaskärmar.',
+    'edu.label': 'Utbildning',
+    'edu.title': '<em>Akademisk</em> bakgrund',
+    'edu.chas.deg': 'Mjukvaru<em style="font-style:italic;color:var(--green)">utveckling</em>',
+    'edu.chas.desc': 'Ett heltäckande program i mjukvaruutveckling med fokus på modern webbutveckling, molnteknik och AI-integration. Stark grund genom hela livscykeln — från systemarkitektur till produktionssättning.',
+    'edu.kth.school': 'KTH | Kungliga Tekniska högskolan',
+    'edu.kth.deg': 'Data<em style="font-style:italic;color:var(--green)">vetenskap</em>',
+    'edu.kth.desc': 'Studerade datavetenskap vid Sveriges ledande tekniska universitet. Fokus på teoretiska grunder och algoritmiskt tänkande innan steget till praktisk yrkeserfarenhet i mjukvarubranschen.',
+    'contact.eyebrow': 'Hör av dig',
+    'contact.head': 'Redo att bygga<br/><em>något stort?</em>',
+    'contact.email': 'E-post',
+    'contact.phone': 'Telefon',
+    'contact.location': 'Plats',
+    'contact.place': 'Upplands-Bro, Sverige',
+    'contact.avail': 'Tillgänglighet',
+    'contact.open': 'Öppen för uppdrag',
+    'contact.send': 'Skicka e-post',
+    'contact.portfolio': 'Portfölj',
+    'footer.copy': '© 2026 Alla rättigheter förbehållna | Ernest Itengishaka'
+  }
+};
+
+let currentLang = 'en';
+function applyLang(lang, animate){
+  const dict = I18N[lang];
+  if (!dict) return;
+  const paint = () => {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = dict[el.getAttribute('data-i18n')];
+      if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const v = dict[el.getAttribute('data-i18n-html')];
+      if (v != null) el.innerHTML = v;
+    });
+    document.documentElement.lang = lang;
+    document.title = dict['meta.title'];
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      const on = btn.dataset.lang === lang;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    try { localStorage.setItem('lang', lang); } catch(e){}
+    document.documentElement.classList.remove('lang-pending');
+    currentLang = lang;
+  };
+  if (!animate) { paint(); return; }
+  document.body.classList.add('lang-switching');
+  setTimeout(() => {
+    paint();
+    requestAnimationFrame(() => document.body.classList.remove('lang-switching'));
+  }, 240);
+}
+
+(function initLang(){
+  let start = 'en';
+  try {
+    const saved = localStorage.getItem('lang');
+    if (saved === 'sv' || saved === 'en') start = saved;
+  } catch(e){}
+  applyLang(start, false);
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.lang === currentLang) return;
+      applyLang(btn.dataset.lang, true);
+    });
+  });
+})();
+
+/* ──────── LIVE AGE ──────── */
+(function updateAge(){
+  const born = new Date('2001-06-17T00:00:00');
+  const now = new Date();
+  let age = now.getFullYear() - born.getFullYear();
+  const m = now.getMonth() - born.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < born.getDate())) age--;
+  document.getElementById('liveAge').textContent = age;
+  // recalculate at next midnight
+  const tomorrow = new Date(now);
+  tomorrow.setHours(24,0,0,0);
+  setTimeout(updateAge, tomorrow - now);
+})();
+
+/* ──────── CURSOR ──────── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
+document.querySelectorAll('a,button,.pdf-btn,.bank-card,.exp-tag,.skill-li,.g-card,.proj-card,.exp-card,.stat-box,.astat,.lang-btn,.lang-modal').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.width='18px'; cur.style.height='18px';
+    cur.style.borderRadius='4px'; cur.style.background='var(--green)';
+    ring.style.width='54px'; ring.style.height='54px'; ring.style.borderColor='rgba(26,122,82,.4)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.width='10px'; cur.style.height='10px';
+    cur.style.borderRadius='50%'; cur.style.background='var(--green)';
+    ring.style.width='34px'; ring.style.height='34px'; ring.style.borderColor='rgba(26,122,82,.35)';
+  });
+});
+(function loop(){ cur.style.left=mx+'px'; cur.style.top=my+'px';
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(loop); })();
+
+/* ──────── ORB FOLLOW MOUSE ──────── */
+document.addEventListener('mousemove', e=>{
+  const px = (e.clientX/window.innerWidth*100).toFixed(1)+'%';
+  const py = (e.clientY/window.innerHeight*100).toFixed(1)+'%';
+  document.body.style.setProperty('--ox', px);
+  document.body.style.setProperty('--oy', py);
+  document.body.style.setProperty('--ox2', (100-parseFloat(px)).toFixed(1)+'%');
+  document.body.style.setProperty('--oy2', (100-parseFloat(py)).toFixed(1)+'%');
+});
+
+/* ──────── 3D CARD TILT ──────── */
+const card = document.getElementById('bankCard');
+card.addEventListener('mousemove', e=>{
+  const r = card.getBoundingClientRect();
+  const cx = r.left + r.width/2;
+  const cy = r.top + r.height/2;
+  const dx = (e.clientX - cx) / (r.width/2);
+  const dy = (e.clientY - cy) / (r.height/2);
+  card.style.transform = `perspective(900px) rotateY(${dx*10}deg) rotateX(${-dy*7}deg) scale3d(1.02,1.02,1.02)`;
+  card.style.boxShadow = `
+    ${-dx*20}px ${dy*20}px 80px rgba(0,0,0,0.18),
+    ${-dx*8}px ${dy*8}px 24px rgba(0,0,0,0.1),
+    0 2px 0 rgba(255,255,255,0.9) inset`;
+});
+card.addEventListener('mouseleave', ()=>{
+  card.style.transform = 'perspective(900px) rotateY(0) rotateX(0) scale3d(1,1,1)';
+  card.style.boxShadow = '';
+});
+// touch tilt for mobile
+card.addEventListener('touchmove', e=>{
+  e.preventDefault();
+  const t = e.touches[0];
+  const r = card.getBoundingClientRect();
+  const cx = r.left + r.width/2; const cy = r.top + r.height/2;
+  const dx = (t.clientX-cx)/(r.width/2); const dy=(t.clientY-cy)/(r.height/2);
+  card.style.transform = `perspective(900px) rotateY(${dx*8}deg) rotateX(${-dy*6}deg)`;
+},{passive:false});
+card.addEventListener('touchend',()=>{ card.style.transform=''; });
+
+/* ──────── HERO CANVAS — floating particles ──────── */
+(function initCanvas(){
+  const cv = document.getElementById('heroCanvas');
+  const ctx = cv.getContext('2d');
+  let W, H;
+  function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+
+  const pts = Array.from({length:55}, ()=>({
+    x: Math.random()*1400, y: Math.random()*900,
+    vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.18,
+    r: Math.random()*2+.5,
+    a: Math.random()*.25+.05,
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(26,122,82,${p.a})`;
+      ctx.fill();
+    });
+    // lines between close points
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(26,122,82,${.06*(1-dist/120)})`;
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ──────── SCROLL SNAP (mobile) ──────── */
+(function initSnap(){
+  const hero = document.getElementById('hero-snap');
+  const main = document.getElementById('main-content');
+  let snapped = false;
+  let lastY = 0;
+  let touchStartY = 0;
+  let touchDeltaAccum = 0;
+  const THRESHOLD = 60; // px swipe needed
+
+  // Mobile touch snap
+  hero.addEventListener('touchstart', e=>{ touchStartY = e.touches[0].clientY; touchDeltaAccum=0; },{passive:true});
+  hero.addEventListener('touchmove', e=>{
+    if(snapped) return;
+    const dy = touchStartY - e.touches[0].clientY;
+    touchDeltaAccum = dy;
+    if(dy > THRESHOLD){
+      snapped = true;
+      window.scrollTo({ top: main.offsetTop, behavior: 'smooth' });
+    }
+  },{passive:true});
+
+  // Desktop wheel snap
+  hero.addEventListener('wheel', e=>{
+    if(snapped) return;
+    if(e.deltaY > 40){
+      snapped = true;
+      window.scrollTo({ top: main.offsetTop, behavior: 'smooth' });
+    }
+    e.preventDefault();
+  },{passive:false});
+
+  // Scroll back to hero from top of main
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY < 5) snapped = false;
+    // if user is near top of main content, resist scroll up back into hero
+  },{passive:true});
+
+  // Arrow button
+  document.getElementById('scrollArrow').addEventListener('click',()=>{
+    snapped = true;
+    window.scrollTo({ top: main.offsetTop, behavior: 'smooth' });
+  });
+})();
+
+/* ──────── SCROLL REVEAL ──────── */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      // counter
+      e.target.querySelectorAll('.count[data-target]').forEach(c=>{
+        const t=+c.dataset.target;
+        let s=performance.now();
+        const step=now=>{ const p=Math.min((now-s)/1400,1); const ease=1-Math.pow(1-p,3);
+          c.textContent=Math.round(ease*t); if(p<1)requestAnimationFrame(step); };
+        requestAnimationFrame(step);
+      });
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:0.08});
+
+document.querySelectorAll('.reveal,.about-text,.astat,.sec-label,.sec-title,.exp-card,.skill-card,.proj-card').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
