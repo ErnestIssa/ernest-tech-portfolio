@@ -373,6 +373,14 @@ body::after {
 }
 .sec-title.in { opacity:1; transform:translateY(0); }
 .sec-title em { font-style:italic; color:var(--green); }
+.sec-title.has-sub { margin-bottom:14px; }
+.sec-sub {
+  font-family:var(--serif); font-size:clamp(15px,1.6vw,18px);
+  line-height:1.5; color:var(--ink3); margin-bottom:56px; max-width:540px;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .7s .15s ease, transform .7s .15s ease;
+}
+.sec-sub.in { opacity:1; transform:translateY(0); }
 
 /* ── GLASS CARD BASE ── */
 .g-card {
@@ -905,7 +913,7 @@ body.lang-switching #main-content {
   <section id="about" class="glass-section">
     <div class="about-inner">
       <p class="about-text reveal" data-i18n="about.body">
-        Software engineer with a passion for coding and problem-solving, introduced to programming at the age of 18. I thrive on
+        Software engineer with a passion for coding and problem-solving, introduced to programming at the age of 20. I thrive on
         tackling complex challenges, continuously developing my technical skills, and collaborating with teams to drive innovation.
         I enjoy sharing knowledge, learning from others, and delivering high-quality, impactful solutions that help organizations achieve their goals.
       </p>
@@ -916,7 +924,7 @@ body.lang-switching #main-content {
         </div>
         <div class="astat reveal" style="transition-delay:.12s">
           <div class="astat-n"><span class="count" data-target="2">0</span></div>
-          <div class="astat-l" data-i18n="stat.companies">Companies</div>
+          <div class="astat-l" data-i18n="stat.companies">Startups</div>
         </div>
         <div class="astat reveal" style="transition-delay:.19s">
           <div class="astat-n"><em><span class="count" data-target="2">0</span></em></div>
@@ -930,63 +938,68 @@ body.lang-switching #main-content {
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" class="glass-section">
-    <div class="sec-label reveal" data-i18n="exp.label">Experience</div>
-    <h2 class="sec-title reveal" data-i18n-html="exp.title">Work <em>History</em></h2>
+  <!-- PROJECTS -->
+  <section id="projects" class="glass-section">
+    <div class="sec-label reveal" data-i18n="proj.label">Projects</div>
+    <h2 class="sec-title reveal" data-i18n-html="proj.title">Selected <em>Work</em></h2>
+    <div class="proj-grid">
 
-    <div class="exp-grid">
-
-      <!-- VORNIFY AI -->
-      <div class="exp-card reveal" style="transition-delay:.04s">
-        <div class="exp-head">
-          <div class="exp-co-wrap">
-            <div class="exp-co"><span class="eco-dot live"></span>Vornify AI
-              <a href="https://vornify.se" target="_blank" class="exp-co-link">↗ vornify.se</a>
-            </div>
-            <span style="font-family:var(--mono);font-size:10px;color:var(--ink4)" data-i18n="exp.vornify.meta">AI Web Development Platform · Stockholm</span>
-          </div>
-          <div class="exp-right">
-            <span class="exp-period" data-i18n="exp.vornify.period">Aug 2025 — Present</span>
-            <span class="exp-badge" data-i18n="exp.current">Current</span>
-          </div>
+      <div class="proj-card reveal" style="transition-delay:.06s">
+        <div class="proj-num">01 <span class="proj-live" data-i18n="badge.live">Live</span></div>
+        <h3 class="proj-name">Peak <em>Mode</em></h3>
+        <div class="proj-sub" data-i18n="proj.peak.sub">Fullstack E-Commerce Platform</div>
+        <p class="proj-desc" data-i18n="proj.peak.desc">A fullstack athletic wear platform — customer storefront and internal admin dashboard in one product suite. React and Vite on the frontend, Node.js, Express, and MongoDB on the backend, with Stripe payments, Cloudinary media, and Render deployment.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">React.js</span><span class="exp-tag">Vite</span><span class="exp-tag">TypeScript</span>
+          <span class="exp-tag">Node.js</span><span class="exp-tag">MongoDB</span><span class="exp-tag">Stripe</span>
+          <span class="exp-tag">Cloudinary</span><span class="exp-tag">Render</span>
         </div>
-        <div class="exp-role" data-i18n-html="exp.vornify.role">Software <em>Engineer</em></div>
-        <p class="exp-desc" data-i18n="exp.vornify.desc">Moved from supporting and building e-commerce platforms (React, Vite, Node.js, Express, MongoDB, Stripe) into delivering production-ready web applications through fullstack development with React, Next.js, Python, FastAPI, and cloud AI. Also responsible for IT infrastructure — servers, SSH and access management, monitoring, and CI/CD pipelines — focused on scalable architecture, uptime, and reliable client workflows.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
-          <span class="exp-tag">FastAPI</span><span class="exp-tag">Vite</span><span class="exp-tag">Node.js</span>
-          <span class="exp-tag">Express.js</span><span class="exp-tag">MongoDB</span><span class="exp-tag">Stripe</span>
-          <span class="exp-tag">Cloud AI</span><span class="exp-tag">CI/CD Pipelines</span><span class="exp-tag">SSH &amp; Access</span>
-          <span class="exp-tag">Monitoring</span><span class="exp-tag">System Architecture</span>
-        </div>
+        <a href="https://peakmode.se/" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
       </div>
 
-      <!-- VERO BYGG AB -->
-      <div class="exp-card reveal" style="transition-delay:.1s;border-left:3px solid rgba(26,122,82,.2)">
-        <div class="exp-head">
-          <div class="exp-co-wrap">
-            <div class="exp-co"><span class="eco-dot past"></span>Vero Bygg AB
-              <a href="https://verobygg.se" target="_blank" class="exp-co-link">↗ verobygg.se</a>
-            </div>
-            <span style="font-family:var(--mono);font-size:10px;color:var(--ink4)" data-i18n="exp.vero.meta">Construction &amp; Groundwork · Stockholm</span>
-          </div>
-          <div class="exp-right">
-            <span class="exp-period" data-i18n="exp.vero.period">Feb 2023 — Jul 2025</span>
-            <span class="exp-badge past" data-i18n="exp.past">Past</span>
-          </div>
-        </div>
-        <div class="exp-role" data-i18n-html="exp.vero.role">Fullstack <em>Developer</em></div>
-        <p class="exp-desc" data-i18n="exp.vero.desc">Development of the digital platform for a Swedish construction and groundwork company, combining a responsive Next.js website with a project showcase and quote-request flow. Fullstack implementation across React and Next.js frontends, Python and Django backends, and database-driven content management for projects and customer inquiries. Contributed to hosting setup, deployment pipelines, and system architecture decisions — built for performance, reliability, and easy day-to-day use by a small team.</p>
-        <div class="exp-tags">
+      <div class="proj-card reveal" style="transition-delay:.14s">
+        <div class="proj-num">02 <span class="proj-offline" data-i18n="badge.offline">Offline</span></div>
+        <h3 class="proj-name">Kluret <em>AI</em></h3>
+        <div class="proj-sub" data-i18n="proj.kluret.sub">AI E-commerce Search Engine</div>
+        <p class="proj-desc" data-i18n="proj.kluret.desc">An AI-driven search engine for product discovery on European e-commerce platforms. Machine learning with intelligent search and real-time catalog insights — fullstack across React, Next.js, Python, Django, TensorFlow, and Elasticsearch.</p>
+        <div class="proj-tags">
           <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
-          <span class="exp-tag">Django</span><span class="exp-tag">CMS</span><span class="exp-tag">Quote requests</span>
-          <span class="exp-tag">Hosting</span><span class="exp-tag">CI/CD Pipelines</span><span class="exp-tag">System Architecture</span>
+          <span class="exp-tag">Django</span><span class="exp-tag">TensorFlow</span><span class="exp-tag">OpenAI APIs</span>
+          <span class="exp-tag">Elasticsearch</span><span class="exp-tag">AWS</span><span class="exp-tag">Docker</span>
         </div>
+        <a href="https://kluret.se" target="_blank" class="proj-link"><span data-i18n="proj.domain">View domain</span> <span class="proj-link-arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal" style="transition-delay:.22s">
+        <div class="proj-num">03 <span class="proj-live" data-i18n="badge.live">Live</span></div>
+        <h3 class="proj-name">FNDRY</h3>
+        <div class="proj-sub" data-i18n="proj.fndry.sub">Vertical SaaS · Construction WaaS</div>
+        <p class="proj-desc" data-i18n="proj.fndry.desc">A multi-tenant website-as-a-service platform for construction companies — one product, many brands. Each tenant gets a public site on their own domain, a separate admin workspace, and isolated leads, bookings, projects, reviews, and media. Shared website, admin, and API; the request host resolves the company. First live tenant: Vero Bygg AB.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">Multi-tenant</span><span class="exp-tag">React.js</span><span class="exp-tag">Node.js</span>
+          <span class="exp-tag">MongoDB</span><span class="exp-tag">JWT</span><span class="exp-tag">Cloudinary</span>
+          <span class="exp-tag">Render</span><span class="exp-tag">Custom domains</span>
+        </div>
+        <a href="https://fndry.se" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal" style="transition-delay:.30s">
+        <div class="proj-num">04 <span class="proj-live" data-i18n="badge.live">Live</span></div>
+        <h3 class="proj-name">Serve<em>OS</em></h3>
+        <div class="proj-sub" data-i18n="proj.serve.sub">Restaurant Operations Platform</div>
+        <p class="proj-desc" data-i18n="proj.serve.desc">A restaurant platform of connected experiences on one backend — not a single app. Desktop admin is the control center for menu, staff, orders, and payments. One Expo mobile app switches by role for owners, staff, and guests. Public QR ordering lets diners browse, cart, pay, and track without installing anything. Built for live orders, with integrations for KDS, existing checkout hardware, and quick-checkout screens.</p>
+        <div class="proj-tags">
+          <span class="exp-tag">React Native</span><span class="exp-tag">Expo</span><span class="exp-tag">React + Vite</span>
+          <span class="exp-tag">TypeScript</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">Prisma</span>
+          <span class="exp-tag">Redis</span><span class="exp-tag">Socket.io</span><span class="exp-tag">Stripe / Swish</span>
+          <span class="exp-tag">TurboRepo</span><span class="exp-tag">QR ordering</span><span class="exp-tag">KDS</span>
+        </div>
+        <a href="https://serveos.se" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
       </div>
 
     </div>
   </section>
+
 
   <!-- SKILLS -->
   <section id="skills" class="glass-section">
@@ -1118,68 +1131,64 @@ body.lang-switching #main-content {
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="glass-section">
-    <div class="sec-label reveal" data-i18n="proj.label">Projects</div>
-    <h2 class="sec-title reveal" data-i18n-html="proj.title">Selected <em>Work</em></h2>
-    <div class="proj-grid">
+  <!-- EXPERIENCE -->
+  <section id="experience" class="glass-section">
+    <div class="sec-label reveal" data-i18n="exp.label">Experience</div>
+    <h2 class="sec-title has-sub reveal" data-i18n-html="exp.title">Startups <em>Involved</em></h2>
+    <p class="sec-sub reveal" data-i18n="exp.sub">Teams I have worked with alongside my studies</p>
 
-      <div class="proj-card reveal" style="transition-delay:.06s">
-        <div class="proj-num">01 <span class="proj-live" data-i18n="badge.live">Live</span></div>
-        <h3 class="proj-name">Peak <em>Mode</em></h3>
-        <div class="proj-sub" data-i18n="proj.peak.sub">Fullstack E-Commerce Platform</div>
-        <p class="proj-desc" data-i18n="proj.peak.desc">A fullstack athletic wear platform — customer storefront and internal admin dashboard in one product suite. React and Vite on the frontend, Node.js, Express, and MongoDB on the backend, with Stripe payments, Cloudinary media, and Render deployment.</p>
-        <div class="proj-tags">
-          <span class="exp-tag">React.js</span><span class="exp-tag">Vite</span><span class="exp-tag">TypeScript</span>
-          <span class="exp-tag">Node.js</span><span class="exp-tag">MongoDB</span><span class="exp-tag">Stripe</span>
-          <span class="exp-tag">Cloudinary</span><span class="exp-tag">Render</span>
+    <div class="exp-grid">
+
+      <!-- VORNIFY AI / CLARGE -->
+      <div class="exp-card reveal" style="transition-delay:.04s">
+        <div class="exp-head">
+          <div class="exp-co-wrap">
+            <div class="exp-co"><span class="eco-dot past"></span>Clarge
+              <a href="https://clarge.se" target="_blank" class="exp-co-link">↗ clarge.se</a>
+            </div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--ink4)" data-i18n="exp.vornify.meta">Formerly Vornify AI · Acquired by Clarge · Stockholm</span>
+          </div>
+          <div class="exp-right">
+            <span class="exp-period" data-i18n="exp.vornify.period">Jun 2026 — Sep 2026</span>
+            <span class="exp-badge past" data-i18n="exp.past">Past</span>
+          </div>
         </div>
-        <a href="https://peakmode.se/" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
-      </div>
-
-      <div class="proj-card reveal" style="transition-delay:.14s">
-        <div class="proj-num">02 <span class="proj-offline" data-i18n="badge.offline">Offline</span></div>
-        <h3 class="proj-name">Kluret <em>AI</em></h3>
-        <div class="proj-sub" data-i18n="proj.kluret.sub">AI E-commerce Search Engine</div>
-        <p class="proj-desc" data-i18n="proj.kluret.desc">An AI-driven search engine for product discovery on European e-commerce platforms. Machine learning with intelligent search and real-time catalog insights — fullstack across React, Next.js, Python, Django, TensorFlow, and Elasticsearch.</p>
-        <div class="proj-tags">
+        <div class="exp-role" data-i18n-html="exp.vornify.role">Software <em>Engineer</em></div>
+        <p class="exp-desc" data-i18n="exp.vornify.desc">Moved from supporting and building e-commerce platforms (React, Vite, Node.js, Express, MongoDB, Stripe) into delivering production-ready web applications through fullstack development with React, Next.js, Python, FastAPI, and cloud AI. Also responsible for IT infrastructure — servers, SSH and access management, monitoring, and CI/CD pipelines — focused on scalable architecture, uptime, and reliable client workflows. Vornify AI was recently acquired by Clarge (clarge.se).</p>
+        <div class="exp-tags">
           <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
-          <span class="exp-tag">Django</span><span class="exp-tag">TensorFlow</span><span class="exp-tag">OpenAI APIs</span>
-          <span class="exp-tag">Elasticsearch</span><span class="exp-tag">AWS</span><span class="exp-tag">Docker</span>
+          <span class="exp-tag">FastAPI</span><span class="exp-tag">Vite</span><span class="exp-tag">Node.js</span>
+          <span class="exp-tag">Express.js</span><span class="exp-tag">MongoDB</span><span class="exp-tag">Stripe</span>
+          <span class="exp-tag">Cloud AI</span><span class="exp-tag">CI/CD Pipelines</span><span class="exp-tag">SSH &amp; Access</span>
+          <span class="exp-tag">Monitoring</span><span class="exp-tag">System Architecture</span>
         </div>
-        <a href="https://kluret.se" target="_blank" class="proj-link"><span data-i18n="proj.domain">View domain</span> <span class="proj-link-arrow">→</span></a>
       </div>
 
-      <div class="proj-card reveal" style="transition-delay:.22s">
-        <div class="proj-num">03 <span class="proj-live" data-i18n="badge.live">Live</span></div>
-        <h3 class="proj-name">FNDRY</h3>
-        <div class="proj-sub" data-i18n="proj.fndry.sub">Vertical SaaS · Construction WaaS</div>
-        <p class="proj-desc" data-i18n="proj.fndry.desc">A multi-tenant website-as-a-service platform for construction companies — one product, many brands. Each tenant gets a public site on their own domain, a separate admin workspace, and isolated leads, bookings, projects, reviews, and media. Shared website, admin, and API; the request host resolves the company. First live tenant: Vero Bygg AB.</p>
-        <div class="proj-tags">
-          <span class="exp-tag">Multi-tenant</span><span class="exp-tag">React.js</span><span class="exp-tag">Node.js</span>
-          <span class="exp-tag">MongoDB</span><span class="exp-tag">JWT</span><span class="exp-tag">Cloudinary</span>
-          <span class="exp-tag">Render</span><span class="exp-tag">Custom domains</span>
+      <!-- VERO BYGG AB -->
+      <div class="exp-card reveal" style="transition-delay:.1s;border-left:3px solid rgba(26,122,82,.2)">
+        <div class="exp-head">
+          <div class="exp-co-wrap">
+            <div class="exp-co"><span class="eco-dot past"></span>Vero Bygg AB
+              <a href="https://verobygg.se" target="_blank" class="exp-co-link">↗ verobygg.se</a>
+            </div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--ink4)" data-i18n="exp.vero.meta">Construction &amp; Groundwork · Stockholm</span>
+          </div>
+          <div class="exp-right">
+            <span class="exp-period" data-i18n="exp.vero.period">Nov 2025 — Mar 2026</span>
+            <span class="exp-badge past" data-i18n="exp.past">Past</span>
+          </div>
         </div>
-        <a href="https://fndry.se" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
-      </div>
-
-      <div class="proj-card reveal" style="transition-delay:.30s">
-        <div class="proj-num">04 <span class="proj-live" data-i18n="badge.live">Live</span></div>
-        <h3 class="proj-name">Serve<em>OS</em></h3>
-        <div class="proj-sub" data-i18n="proj.serve.sub">Restaurant Operations Platform</div>
-        <p class="proj-desc" data-i18n="proj.serve.desc">A restaurant platform of connected experiences on one backend — not a single app. Desktop admin is the control center for menu, staff, orders, and payments. One Expo mobile app switches by role for owners, staff, and guests. Public QR ordering lets diners browse, cart, pay, and track without installing anything. Built for live orders, with integrations for KDS, existing checkout hardware, and quick-checkout screens.</p>
-        <div class="proj-tags">
-          <span class="exp-tag">React Native</span><span class="exp-tag">Expo</span><span class="exp-tag">React + Vite</span>
-          <span class="exp-tag">TypeScript</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">Prisma</span>
-          <span class="exp-tag">Redis</span><span class="exp-tag">Socket.io</span><span class="exp-tag">Stripe / Swish</span>
-          <span class="exp-tag">TurboRepo</span><span class="exp-tag">QR ordering</span><span class="exp-tag">KDS</span>
+        <div class="exp-role" data-i18n-html="exp.vero.role">Fullstack <em>Developer</em></div>
+        <p class="exp-desc" data-i18n="exp.vero.desc">Development of the digital platform for a Swedish construction and groundwork company, combining a responsive Next.js website with a project showcase and quote-request flow. Fullstack implementation across React and Next.js frontends, Python and Django backends, and database-driven content management for projects and customer inquiries. Contributed to hosting setup, deployment pipelines, and system architecture decisions — built for performance, reliability, and easy day-to-day use by a small team.</p>
+        <div class="exp-tags">
+          <span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Python</span>
+          <span class="exp-tag">Django</span><span class="exp-tag">CMS</span><span class="exp-tag">Quote requests</span>
+          <span class="exp-tag">Hosting</span><span class="exp-tag">CI/CD Pipelines</span><span class="exp-tag">System Architecture</span>
         </div>
-        <a href="https://serveos.se" target="_blank" class="proj-link"><span data-i18n="proj.view">View project</span> <span class="proj-link-arrow">→</span></a>
       </div>
 
     </div>
   </section>
-
 
   <!-- EDUCATION -->
   <section id="education" class="glass-section" style="padding-top:0">
@@ -1187,12 +1196,24 @@ body.lang-switching #main-content {
     <h2 class="sec-title reveal" data-i18n-html="edu.title"><em>Academic</em> Background</h2>
     <div class="edu-grid">
       <div class="g-card reveal" style="padding:48px 44px">
-        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:16px">YHögskolan | Chas Academy</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4)">YHögskolan | Chas Academy</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <span class="exp-period" data-i18n="edu.chas.period">Sep 2025 — Jun 2027</span>
+            <span class="exp-badge" data-i18n="exp.current">Current</span>
+          </div>
+        </div>
         <div style="font-family:var(--serif);font-size:clamp(32px,4vw,46px);font-weight:300;line-height:1.05;color:var(--ink);margin-bottom:24px" data-i18n-html="edu.chas.deg">Software <em style="font-style:italic;color:var(--green)">Engineering</em></div>
         <p style="font-family:var(--serif);font-size:16px;line-height:1.72;color:var(--ink2)" data-i18n="edu.chas.desc">Comprehensive software development programme focusing on modern web development, cloud technologies, and AI integration. Built a strong foundation across the full software development lifecycle — from system architecture to production deployment.</p>
       </div>
       <div class="g-card reveal" style="padding:48px 44px">
-        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:16px" data-i18n="edu.kth.school">KTH | Royal Institute of Technology</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4)" data-i18n="edu.kth.school">KTH | Royal Institute of Technology</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <span class="exp-period" data-i18n="edu.kth.period">Sep 2024 — Mar 2025</span>
+            <span style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4)" data-i18n="edu.kth.note">Short online course</span>
+          </div>
+        </div>
         <div style="font-family:var(--serif);font-size:clamp(32px,4vw,46px);font-weight:300;line-height:1.05;color:var(--ink);margin-bottom:24px" data-i18n-html="edu.kth.deg">Computer <em style="font-style:italic;color:var(--green)">Science</em></div>
         <p style="font-family:var(--serif);font-size:16px;line-height:1.72;color:var(--ink2)" data-i18n="edu.kth.desc">Enrolled in the Computer Science programme at Sweden's leading technical university. Focused on theoretical foundations and advanced algorithmic thinking before transitioning to hands-on professional experience in the software industry.</p>
       </div>
@@ -1254,21 +1275,22 @@ const I18N = {
     'hero.yrs': 'yrs',
     'hero.scroll': 'Scroll',
     'hero.swipe': 'Swipe up',
-    'about.body': 'Software engineer with a passion for coding and problem-solving, introduced to programming at the age of 18. I thrive on tackling complex challenges, continuously developing my technical skills, and collaborating with teams to drive innovation. I enjoy sharing knowledge, learning from others, and delivering high-quality, impactful solutions that help organizations achieve their goals.',
+    'about.body': 'Software engineer with a passion for coding and problem-solving, introduced to programming at the age of 20. I thrive on tackling complex challenges, continuously developing my technical skills, and collaborating with teams to drive innovation. I enjoy sharing knowledge, learning from others, and delivering high-quality, impactful solutions that help organizations achieve their goals.',
     'stat.years': 'Years exp',
-    'stat.companies': 'Companies',
+    'stat.companies': 'Startups',
     'stat.ai': 'AI products',
     'stat.tech': 'Technologies',
     'exp.label': 'Experience',
-    'exp.title': 'Work <em>History</em>',
+    'exp.title': 'Startups <em>Involved</em>',
+    'exp.sub': 'Teams I have worked with alongside my studies',
     'exp.current': 'Current',
     'exp.past': 'Past',
-    'exp.vornify.meta': 'AI Web Development Platform · Stockholm',
-    'exp.vornify.period': 'Aug 2025 — Present',
+    'exp.vornify.meta': 'Formerly Vornify AI · Acquired by Clarge · Stockholm',
+    'exp.vornify.period': 'Jun 2026 — Sep 2026',
     'exp.vornify.role': 'Software <em>Engineer</em>',
-    'exp.vornify.desc': 'Moved from supporting and building e-commerce platforms (React, Vite, Node.js, Express, MongoDB, Stripe) into delivering production-ready web applications through fullstack development with React, Next.js, Python, FastAPI, and cloud AI. Also responsible for IT infrastructure — servers, SSH and access management, monitoring, and CI/CD pipelines — focused on scalable architecture, uptime, and reliable client workflows.',
+    'exp.vornify.desc': 'Moved from supporting and building e-commerce platforms (React, Vite, Node.js, Express, MongoDB, Stripe) into delivering production-ready web applications through fullstack development with React, Next.js, Python, FastAPI, and cloud AI. Also responsible for IT infrastructure — servers, SSH and access management, monitoring, and CI/CD pipelines — focused on scalable architecture, uptime, and reliable client workflows. Vornify AI was recently acquired by Clarge (clarge.se).',
     'exp.vero.meta': 'Construction & Groundwork · Stockholm',
-    'exp.vero.period': 'Feb 2023 — Jul 2025',
+    'exp.vero.period': 'Nov 2025 — Mar 2026',
     'exp.vero.role': 'Fullstack <em>Developer</em>',
     'exp.vero.desc': 'Development of the digital platform for a Swedish construction and groundwork company, combining a responsive Next.js website with a project showcase and quote-request flow. Fullstack implementation across React and Next.js frontends, Python and Django backends, and database-driven content management for projects and customer inquiries. Contributed to hosting setup, deployment pipelines, and system architecture decisions — built for performance, reliability, and easy day-to-day use by a small team.',
     'skills.label': 'Expertise',
@@ -1311,9 +1333,12 @@ const I18N = {
     'proj.serve.desc': 'A restaurant platform of connected experiences on one backend — not a single app. Desktop admin is the control center for menu, staff, orders, and payments. One Expo mobile app switches by role for owners, staff, and guests. Public QR ordering lets diners browse, cart, pay, and track without installing anything. Built for live orders, with integrations for KDS, existing checkout hardware, and quick-checkout screens.',
     'edu.label': 'Education',
     'edu.title': '<em>Academic</em> Background',
+    'edu.chas.period': 'Sep 2025 — Jun 2027',
     'edu.chas.deg': 'Software <em style="font-style:italic;color:var(--green)">Engineering</em>',
     'edu.chas.desc': 'Comprehensive software development programme focusing on modern web development, cloud technologies, and AI integration. Built a strong foundation across the full software development lifecycle — from system architecture to production deployment.',
     'edu.kth.school': 'KTH | Royal Institute of Technology',
+    'edu.kth.period': 'Sep 2024 — Mar 2025',
+    'edu.kth.note': 'Short online course',
     'edu.kth.deg': 'Computer <em style="font-style:italic;color:var(--green)">Science</em>',
     'edu.kth.desc': "Enrolled in the Computer Science programme at Sweden's leading technical university. Focused on theoretical foundations and advanced algorithmic thinking before transitioning to hands-on professional experience in the software industry.",
     'contact.eyebrow': "Let's connect",
@@ -1338,21 +1363,22 @@ const I18N = {
     'hero.yrs': 'år',
     'hero.scroll': 'Scrolla',
     'hero.swipe': 'Svep upp',
-    'about.body': 'Mjukvaruingenjör med passion för kod och problemlösning, som började programmera vid 18 års ålder. Jag trivs med komplexa utmaningar, utvecklar ständigt mina tekniska färdigheter och samarbetar i team för att driva innovation. Jag gillar att dela kunskap, lära av andra och leverera högkvalitativa lösningar som hjälper organisationer att nå sina mål.',
+    'about.body': 'Mjukvaruingenjör med passion för kod och problemlösning, som började programmera vid 20 års ålder. Jag trivs med komplexa utmaningar, utvecklar ständigt mina tekniska färdigheter och samarbetar i team för att driva innovation. Jag gillar att dela kunskap, lära av andra och leverera högkvalitativa lösningar som hjälper organisationer att nå sina mål.',
     'stat.years': 'Års erfarenhet',
-    'stat.companies': 'Företag',
+    'stat.companies': 'Startups',
     'stat.ai': 'AI-produkter',
     'stat.tech': 'Teknologier',
     'exp.label': 'Erfarenhet',
-    'exp.title': 'Arbets<em>historik</em>',
+    'exp.title': 'Startups <em>involverade</em>',
+    'exp.sub': 'Team jag har arbetat med vid sidan av studierna',
     'exp.current': 'Nuvarande',
     'exp.past': 'Tidigare',
-    'exp.vornify.meta': 'AI-webbutvecklingsplattform · Stockholm',
-    'exp.vornify.period': 'Aug 2025 — nu',
+    'exp.vornify.meta': 'Tidigare Vornify AI · Förvärvad av Clarge · Stockholm',
+    'exp.vornify.period': 'Jun 2026 — Sep 2026',
     'exp.vornify.role': 'Mjukvaru<em>ingenjör</em>',
-    'exp.vornify.desc': 'Gick från att stötta och bygga e-handelsplattformar (React, Vite, Node.js, Express, MongoDB, Stripe) till att leverera produktionsklara webbapplikationer genom fullstackutveckling med React, Next.js, Python, FastAPI och moln-AI. Ansvarar även för IT-infrastruktur — servrar, SSH och åtkomsthantering, övervakning och CI/CD-pipelines — med fokus på skalbar arkitektur, upptid och pålitliga kundflöden.',
+    'exp.vornify.desc': 'Gick från att stötta och bygga e-handelsplattformar (React, Vite, Node.js, Express, MongoDB, Stripe) till att leverera produktionsklara webbapplikationer genom fullstackutveckling med React, Next.js, Python, FastAPI och moln-AI. Ansvarar även för IT-infrastruktur — servrar, SSH och åtkomsthantering, övervakning och CI/CD-pipelines — med fokus på skalbar arkitektur, upptid och pålitliga kundflöden. Vornify AI förvärvades nyligen av Clarge (clarge.se).',
     'exp.vero.meta': 'Bygg & markarbete · Stockholm',
-    'exp.vero.period': 'Feb 2023 — Jul 2025',
+    'exp.vero.period': 'Nov 2025 — Mar 2026',
     'exp.vero.role': 'Fullstack<em>utvecklare</em>',
     'exp.vero.desc': 'Utveckling av den digitala plattformen för ett svenskt bygg- och markentreprenadföretag, med en responsiv Next.js-webbplats, projektgalleri och offertförfrågan. Fullstackimplementation med React och Next.js i frontend, Python och Django i backend, samt databasstyrd innehållshantering för projekt och kundförfrågningar. Bidrog till hosting, deploypipelines och arkitekturbeslut — byggt för prestanda, tillförlitlighet och enkel vardagsanvändning för ett litet team.',
     'skills.label': 'Kompetens',
@@ -1395,9 +1421,12 @@ const I18N = {
     'proj.serve.desc': 'En restaurangplattform med kopplade upplevelser mot samma backend — inte en enda app. Webbadmin är kontrollcentralen för meny, personal, ordrar och betalningar. En Expo-mobilapp växlar efter roll för ägare, personal och gäster. Publik QR-beställning låter gäster bläddra, lägga i varukorg, betala och följa ordern utan att installera något. Byggt för liveordrar, med integrationer för KDS, befintlig kassahårdvara och snabbkassaskärmar.',
     'edu.label': 'Utbildning',
     'edu.title': '<em>Akademisk</em> bakgrund',
+    'edu.chas.period': 'Sep 2025 — Jun 2027',
     'edu.chas.deg': 'Mjukvaru<em style="font-style:italic;color:var(--green)">utveckling</em>',
     'edu.chas.desc': 'Ett heltäckande program i mjukvaruutveckling med fokus på modern webbutveckling, molnteknik och AI-integration. Stark grund genom hela livscykeln — från systemarkitektur till produktionssättning.',
     'edu.kth.school': 'KTH | Kungliga Tekniska högskolan',
+    'edu.kth.period': 'Sep 2024 — Mar 2025',
+    'edu.kth.note': 'Kort onlinekurs',
     'edu.kth.deg': 'Data<em style="font-style:italic;color:var(--green)">vetenskap</em>',
     'edu.kth.desc': 'Studerade datavetenskap vid Sveriges ledande tekniska universitet. Fokus på teoretiska grunder och algoritmiskt tänkande innan steget till praktisk yrkeserfarenhet i mjukvarubranschen.',
     'contact.eyebrow': 'Hör av dig',
@@ -1645,7 +1674,7 @@ const io = new IntersectionObserver(entries=>{
   });
 },{threshold:0.08});
 
-document.querySelectorAll('.reveal,.about-text,.astat,.sec-label,.sec-title,.exp-card,.skill-card,.proj-card').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal,.about-text,.astat,.sec-label,.sec-title,.sec-sub,.exp-card,.skill-card,.proj-card').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
